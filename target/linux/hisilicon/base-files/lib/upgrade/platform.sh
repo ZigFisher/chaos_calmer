@@ -12,6 +12,10 @@ platform_check_image() {
 
 	[ "$#" -gt 1 ] && return 1
 
+	# temporary
+	echo $board
+	echo $magic_long
+
 	case "$board" in
 	hi3518ev200)
 		[ "$magic_long" != "27051956" -a "$magic_long" != "73797375" ] && {

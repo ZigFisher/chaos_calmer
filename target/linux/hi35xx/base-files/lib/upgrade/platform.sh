@@ -14,7 +14,7 @@ platform_check_image() {
 
 	case "$board" in
 	hi3518ev200)
-		[ "$magic_long" != "27051956" -a "$magic_long" != "73797375" ] && {
+		[ "$magic_long" != "27051956" -a "$magic_long" != "55423a33" ] && {
 			echo "Invalid image type."
 			return 1
 		}

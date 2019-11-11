@@ -23,6 +23,8 @@ key-build*
 TAGS*~
 git-src
 #
-/target/linux/ramips/patches-3.18/0521-zftlab-flyprotect.patch
+/RELEASE
 /backup
 /dl
+/target/linux/hisilicon/base-files/etc/soc-version
+/target/linux/ramips/patches-3.18/0521-zftlab-flyprotect.patch

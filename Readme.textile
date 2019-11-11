@@ -1,0 +1,20 @@
+
+h3. OpenIPC.org
+
+p. Alternative firmware for IP cameras and NVR based on the HiSilicon SoC's
+
+p. More information on the page - "https://openipc.org":https://openipc.org
+
+p. !https://img.shields.io/github/v/release/ZigFisher/chaos_calmer.svg! !https://img.shields.io/github/downloads/ZigFisher/chaos_calmer/total.svg!
+
+---
+
+h4. Usage example
+
+pre. git clone https://github.com/OpenIPC/chaos_calmer.git OpenIPC
+cd OpenIPC
+./Project_OpenIPC.sh update
+./Project_OpenIPC.sh hi3516cv200
+
+---
+

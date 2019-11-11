@@ -1,7 +1,0 @@
-h3. Igor Zalatov (aka ZigFisher)
-
----
-
-p. !https://img.shields.io/github/v/release/ZigFisher/chaos_calmer.svg! !https://img.shields.io/github/downloads/ZigFisher/chaos_calmer/total.svg!
-
-p. This is my development branch

@@ -15,17 +15,20 @@ hisilicon_board_detect() {
 	machine=$(hi_chip_info --chip_id)
 
 	case "$machine" in
-	*"hi3516cv100")
+	hi3516cv100)
 		name="hi3516cv100"
 		;;
-	*"hi3516cv200")
+	hi3516cv200)
 		name="hi3516cv200"
 		;;
-	*"hi3518ev100")
+	hi3518ev100)
 		name="hi3518ev100"
 		;;
-	*"hi3518ev200")
+	hi3518ev200)
 		name="hi3518ev200"
+		;;
+	chupa|chups)
+		name="chupachups"
 		;;
 	*)
 		name="unknown";
