@@ -8,21 +8,20 @@ include $(TOPDIR)/rules.mk
 
 ARCH:=arm
 BOARD:=hi35xx
-BOARDNAME:=Hisilicon HI3518/HI3516
-SUBTARGETS:=16cv100 16cv200 16cv300 16ev100 18av100 18cv100 18ev100 18ev200 18ev201
-# SUBTARGETS:=hi3516cv100 hi3516cv200 hi3516cv300 hi3516ev100 hi3518av100 hi3518cv100 hi3518ev100 hi3518ev200 hi3518ev201
+BOARDNAME:=Hisilicon HI35xx devices
+SUBTARGETS:=15av100 15cv100 16av200 16cv100 16cv200 16cv300 16ev100 18av100 18cv100 18ev100 18ev200 18ev201 20dv100 20dv200
 
 FEATURES:=squashfs rtc usb gpio
+DEFAULT_PACKAGES := \
+		kmod-tun
 
 MAINTAINER:=Igor Zalatov (ZFT Lab.) <flyrouter@gmail.com>
 KERNEL_PATCHVER:=3.4.35
 KERNELNAME:=zImage
 
 define Target/Description
-	Build firmware images for Hisilicon SoC based IPCam's and NVR's.
-	Currently supports Xiong Mai (XM) and JVT based devices only.
-	Instructions are available here (rus):
-	https://zftlab.org/pages/2018010700.html
+	Alternative firmware for IP cameras and NVR based on the HiSilicon SoC'
+	More info at: https://openipc.org
 endef
 
 include $(INCLUDE_DIR)/target.mk

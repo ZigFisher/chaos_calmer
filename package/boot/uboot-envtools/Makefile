@@ -77,9 +77,9 @@ ifneq ($(CONFIG_TARGET_cns3xxx),)
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_DATA) ./files/cns3xxx $(1)/etc/uci-defaults/30_uboot-envtools
 endif
-ifneq ($(CONFIG_TARGET_hisilicon),)
+ifneq ($(CONFIG_TARGET_hi35xx),)
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DATA) ./files/hisilicon $(1)/etc/uci-defaults/30_uboot-envtools
+	$(INSTALL_DATA) ./files/hi35xx $(1)/etc/uci-defaults/30_uboot-envtools
 endif
 ifneq ($(CONFIG_TARGET_imx6),)
 	$(INSTALL_DIR) $(1)/etc/uci-defaults

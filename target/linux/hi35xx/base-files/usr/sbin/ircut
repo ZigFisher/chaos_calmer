@@ -3,16 +3,19 @@
 way="/sys/class/gpio"
 ircut1=$(uci -q get ipcam.gpio.ircut1)
 ircut2=$(uci -q get ipcam.gpio.ircut2)
+light=$(uci -q get ipcam.gpio.irled)
 end="0"
 
 
 prepare() {
-  logger -t ircut "IRCUT prepare"
+  logger -t ircut "IRCUT & LIGHT prepare"
   [ ! -d ${way}/gpio${ircut1} ] && echo ${ircut1} >${way}/export
   [ ! -d ${way}/gpio${ircut2} ] && echo ${ircut2} >${way}/export
+  [ ! -d ${way}/gpio${irled} ] && echo ${irled} >${way}/export
   #
   echo "out" >${way}/gpio${ircut1}/direction
   echo "out" >${way}/gpio${ircut2}/direction
+  echo "in" >${way}/gpio${irled}/direction
 }
 
 enable() {
@@ -48,7 +51,6 @@ test() {
 
 
 if [ -n "$1" ]; then
-  prepare
   $1
 else
   test

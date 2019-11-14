@@ -3,8 +3,9 @@
 #
 
 SUBTARGET:=18ev200
-BOARDNAME:=HI3518ev200 (ARMv5) armv5tej
+BOARDNAME:=HI3518EV200 (ARMv5) armv5tej
 CPU_TYPE:=arm926ej-s
+FEATURES+=low_mem
 KERNEL_PATCHVER:=3.4.35
 
 define Target/Description

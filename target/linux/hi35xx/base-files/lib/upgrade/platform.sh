@@ -2,9 +2,9 @@
 # Copyright (C) 2014 OpenWrt.org
 #
 
-. /lib/hisilicon.sh
+. /lib/hi35xx.sh
 
-RAMFS_COPY_DATA=/lib/hisilicon.sh
+RAMFS_COPY_DATA=/lib/hi35xx.sh
 
 platform_check_image() {
 	local board=$(hisilicon_board_name)
@@ -12,9 +12,13 @@ platform_check_image() {
 
 	[ "$#" -gt 1 ] && return 1
 
+	# temporary
+	echo $board
+	echo $magic_long
+
 	case "$board" in
 	hi3518ev200)
-		[ "$magic_long" != "27051956" -a "$magic_long" != "55423a33" ] && {
+		[ "$magic_long" != "27051956" -a "$magic_long" != "73797375" ] && {
 			echo "Invalid image type."
 			return 1
 		}

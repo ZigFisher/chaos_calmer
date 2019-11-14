@@ -12,11 +12,12 @@ config ipcam 'global'
 
 config ipcam 'video'
 	option sensor	'ar0130'
+	option disabled	'0'
 
 config ipcam 'gpio'
 	option ircut1	'64'
 	option ircut2	'65'
-	option irled	'47'
+	option light	'47'
 	option reset	'0'
 
 config ipcam 'i2c'

@@ -7,7 +7,7 @@
 
 define Profile/BEWARD_DS06M
   NAME:=Beward DS06M
-  PACKAGES:=
+  PACKAGES:=busybox
 endef
 
 define Profile/BEWARD_DS06M/Description

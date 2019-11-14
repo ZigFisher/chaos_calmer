@@ -7,7 +7,7 @@
 
 define Profile/None
   NAME:=None
-  PACKAGES:=
+  PACKAGES:=busybox
 endef
 
 define Profile/None/Description

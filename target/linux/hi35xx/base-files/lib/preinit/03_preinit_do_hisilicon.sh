@@ -1,7 +1,7 @@
 #!/bin/sh
 
 do_hisilicon() {
-	. /lib/hisilicon.sh
+	. /lib/hi35xx.sh
 
 	hisilicon_board_detect
 }

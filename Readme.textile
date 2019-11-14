@@ -5,7 +5,7 @@ p. Alternative firmware for IP cameras and NVR based on the HiSilicon SoC's
 
 p. More information on the page - "https://openipc.org":https://openipc.org
 
-p. !https://img.shields.io/github/v/release/ZigFisher/chaos_calmer.svg! !https://img.shields.io/github/downloads/ZigFisher/chaos_calmer/total.svg!
+p. !https://img.shields.io/github/v/release/OpenIPC/chaos_calmer.svg! !https://img.shields.io/github/downloads/OpenIPC/chaos_calmer/total.svg!
 
 ---
 

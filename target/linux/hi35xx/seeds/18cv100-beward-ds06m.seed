@@ -825,7 +825,7 @@ CONFIG_BUSYBOX_CONFIG_LOGGER=y
 
 # CONFIG_PACKAGE_resolveip=m
 # CONFIG_PACKAGE_rpcd=y
-# CONFIG_PACKAGE_wireless-tools=y	
+# CONFIG_PACKAGE_wireless-tools=y
 
 # CONFIG_PACKAGE_kmod-scsi-core=y
 

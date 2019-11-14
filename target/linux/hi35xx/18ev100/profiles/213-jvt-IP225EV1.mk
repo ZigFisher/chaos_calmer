@@ -7,7 +7,7 @@
 
 define Profile/JVT_IP_225E_V1
   NAME:=JVT IP-225E-V1
-  PACKAGES:=
+  PACKAGES:=busybox
 endef
 
 define Profile/JVT_IP_225E_V1/Description

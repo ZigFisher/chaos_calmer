@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Copyright (C) 2011-2012 OpenWrt.org
+#
+
+[ -e /etc/config/ubootenv ] && exit 0
+
+touch /etc/config/ubootenv
+
+. /lib/hi35xx.sh
+. /lib/uboot-envtools.sh
+. /lib/functions.sh
+
+board=$(hisilicon_board_name)
+
+case "$board" in
+hi3516cv100)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x20000" "1"
+	;;
+
+hi3516cv200)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x20000" "1"
+	;;
+
+hi3518ev100)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x10000" "1"
+	;;
+
+hi3518ev200 | \
+hi3518ev201)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x10000" "1"
+	;;
+
+jvt_s130h18v)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x10000" "1"
+	;;
+
+jvt_s135h18v)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x20000" "1"
+	;;
+
+jvt_s323h16v)
+	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x20000" "1"
+	;;
+esac
+
+config_load ubootenv
+config_foreach ubootenv_add_app_config ubootenv
+
+exit 0

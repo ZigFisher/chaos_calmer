@@ -4,7 +4,7 @@
 #
 
 . /lib/functions/leds.sh
-. /lib/hisilicon.sh
+. /lib/hi35xx.sh
 
 
 gpio_init() {
@@ -34,6 +34,8 @@ gpio_init() {
 		devmem 0x200f00bc 32 0x0 && echo " | GPIO5_7 | GPIO47 | irled     | Board JVT S130H18V and JVS/Sunwo ZB232_V200+0130 | SoC hi3518ev200 | " | logger -t gpio_init
 		devmem 0x200f0100 32 0x1 && echo " | GPIO8_0 | GPIO64 | ircut_1   | Board JVT S130H18V and JVS/Sunwo ZB232_V200+0130 | SoC hi3518ev200 | " | logger -t gpio_init
 		devmem 0x200f0104 32 0x1 && echo " | GPIO8_1 | GPIO65 | ircut_2   | Board JVT S130H18V and JVS/Sunwo ZB232_V200+0130 | SoC hi3518ev200 | " | logger -t gpio_init
+		#
+		devmem 0x200f00F8 32 0x1 && echo " | GPIO7_6 | GPIO62 | irled     | Board Switcam HS303                              | SoC hi3518ev200 | " | logger -t gpio_init
 		;;
 
 	jvt_s130h18v)

@@ -7,7 +7,7 @@
 
 define Profile/ZMODO_ZH_IXU1D_MAC
   NAME:=Zmodo ZH-IXU1D-MAC
-  PACKAGES:=
+  PACKAGES:=busybox
 endef
 
 define Profile/ZMODO_ZH_IXU1D_MAC/Description
