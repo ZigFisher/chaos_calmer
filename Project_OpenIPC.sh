@@ -13,20 +13,20 @@ fi
 
 
 prepare_image_config() {
-    echo -e "\nStart building OpenWrt firmware for $1 with kernel $2"                         #
-    echo "$1" > target/linux/hisilicon/base-files/etc/soc-version                             # Create identification file for updates
-    cp target/linux/hisilicon/examples/.$3 ./.config                                          # Copy default config
-    sed -i "s/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=$2/" target/linux/hisilicon/Makefile       # Set right kernel version
-    ./scripts/feeds update glutinium openipc                                                  # Update glutinium and openipc feed
-    #sed -i 's/# CONFIG_ALL is not set.*/CONFIG_ALL=y/' ./.config                             # Enable all packages
+    echo -e "\nStart building OpenWrt firmware for $1 with kernel $2"                      #
+    echo "$1" > target/linux/hi35xx/base-files/etc/soc-version                             # Create identification file for updates
+    cp target/linux/hi35xx/examples/.$3 ./.config                                          # Copy default config
+    sed -i "s/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=$2/" target/linux/hi35xx/Makefile       # Set right kernel version
+    ./scripts/feeds update glutinium openipc                                               # Update glutinium and openipc feed
+    #sed -i 's/# CONFIG_ALL is not set.*/CONFIG_ALL=y/' ./.config                          # Enable all packages
     #make package/feeds/OpenIPC/histreamer/{compile,install}
 }
 
 start_build() {
-    make clean && time make V=s -j$(($(nproc)+1))                                             # Clean and compile
-    rm target/linux/hisilicon/base-files/etc/soc-version                                      # Remove temporary identification file for updates
-    #DATE=$(date +%Y%m%d) ; [ -d zft_lab ] || mkdir -p zft_lab                                # Set time and create output dir
-    #cp -v bin/hisilicon/uImage-OpenWrt-HI35xx zft_lab/uImage-OpenWrt-${SOC}-${DATE}.bin      # Copy Firmware
+    make clean && time make V=s -j$(($(nproc)+1))                                          # Clean and compile
+    rm target/linux/hi35xx/base-files/etc/soc-version                                      # Remove temporary identification file for updates
+    #DATE=$(date +%Y%m%d) ; [ -d zft_lab ] || mkdir -p zft_lab                             # Set time and create output dir
+    #cp -v bin/hi35xx/uImage-OpenWrt-HI35xx zft_lab/uImage-OpenWrt-${SOC}-${DATE}.bin      # Copy Firmware
 }
 
 
@@ -40,7 +40,7 @@ case $build in
 
   hi3516cv200|hi3518ev200|hi3518ev201)
     SOC=${build}
-    prepare_image_config ${SOC} "3.4.35" "config_armv5tej_luci_default"
+    prepare_image_config ${SOC} "3.4.35" "config_18ev200_jvt_s130h18v"
     start_build
     ;;
 
@@ -106,17 +106,19 @@ case $build in
 
   push)
     echo "Start pushing firmware"
-    scp bin/hisilicon/openwrt-hisilicon-* root@172.28.200.72:/srv/tftp/                          # Push firmware to ZFT Lab. TFTP server
-    scp bin/hisilicon/openwrt-hisilicon-* zig@172.28.200.74:~                                    # Push firmware to my PC
+    cd bin/hi35xx
+    scp openwrt-hi35xx-*-default-initramfs-uImage openwrt-hi35xx-*-default-uImage    root@172.28.200.72:/srv/tftp/                                # Push firmware to ZFT Lab. TFTP server
+    scp openwrt-hi35xx-*-default-initramfs-uImage openwrt-hi35xx-*-default-uImage    zig@172.28.200.74:~                                          # Push firmware to my PC
     ;;
 
   upload)
     echo "Start uploading firmware and packages"
-    scp bin/hisilicon/openwrt-hisilicon-* \
+    cd bin/hi35xx
+    scp openwrt-hi35xx-*-default-initramfs-uImage openwrt-hi35xx-*-default-uImage \
       root@araneus:/var/www/net_flyrouter/downloads/software/ipcam/GitHub_OpenWrt/Firmware/      # Upload firmware to WEB server
-    scp -r bin/hisilicon/packages/* \
+    scp -r packages/* \
       root@araneus:/var/www/net_flyrouter/downloads/software/ipcam/GitHub_OpenWrt/Packages/      # Upload packages to WEB server
-    scp -r bin/hisilicon/OpenWrt-* \
+    scp -r OpenWrt-ImageBuilder-* OpenWrt-SDK-* \
       root@araneus:/var/www/net_flyrouter/downloads/software/ipcam/GitHub_OpenWrt/SDK/           # Upload SDK an ImageBuilder to WEB server
     ;;
 
@@ -125,7 +127,7 @@ case $build in
     ./scripts/feeds update zftlab
     #make package/feeds/glutinium/kdb/{clean,compile,install}
     make package/feeds/zftlab/ipeye/{clean,compile,install}
-    #scp ./bin/hisilicon/packages/zftlab/*.ipk zig@172.28.200.74:~
+    #scp ./bin/hi35xx/packages/zftlab/*.ipk zig@172.28.200.74:~
     ;;
 
   minihttp)
@@ -141,7 +143,7 @@ case $build in
     ./scripts/feeds install -f -p glutinium hisi-osdrv1-base hisi-sample
     make package/feeds/glutinium/hisi-osdrv1/clean  &&  make -j1 V=s package/feeds/glutinium/hisi-osdrv1/compile  &&  make -j1 V=s package/feeds/glutinium/hisi-osdrv1/install
     make package/feeds/glutinium/hisi-sample/clean  &&  make -j1 V=s package/feeds/glutinium/hisi-sample/compile  &&  make -j1 V=s package/feeds/glutinium/hisi-sample/install
-    #scp ./bin/hisilicon/packages/glutinium/*.ipk zig@172.28.200.74:~
+    #scp ./bin/hi35xx/packages/glutinium/*.ipk zig@172.28.200.74:~
     ;;
 
   osdrv2)
@@ -150,7 +152,7 @@ case $build in
     ./scripts/feeds install -f -p glutinium hisi-osdrv2-base hisi-sample
     make package/feeds/glutinium/hisi-osdrv2/clean  &&  make -j1 V=s package/feeds/glutinium/hisi-osdrv2/compile  &&  make -j1 V=s package/feeds/glutinium/hisi-osdrv2/install
     make package/feeds/glutinium/hisi-sample/clean  &&  make -j1 V=s package/feeds/glutinium/hisi-sample/compile  &&  make -j1 V=s package/feeds/glutinium/hisi-sample/install
-    #scp ./bin/hisilicon/packages/glutinium/*.ipk zig@172.28.200.74:~
+    #scp ./bin/hi35xx/packages/glutinium/*.ipk zig@172.28.200.74:~
     ;;
 
   *)
@@ -175,22 +177,22 @@ esac
 
 
 
-#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_U:=.*/CONFIG_HIETH_MII_RMII_MODE_U:=1/' target/linux/hisilicon/config-3.0.8.phy-xm      # Set CONFIG_HIETH_MII_RMII_MODE_U=1   - XM+BLUE vendor
-#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_D:=.*/CONFIG_HIETH_MII_RMII_MODE_D:=1/' target/linux/hisilicon/config-3.0.8.phy-xm      # Set CONFIG_HIETH_MII_RMII_MODE_D=1   - XM+BLUE vendor
+#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_U:=.*/CONFIG_HIETH_MII_RMII_MODE_U:=1/' target/linux/hi35xx/config-3.0.8.phy-xm      # Set CONFIG_HIETH_MII_RMII_MODE_U=1   - XM+BLUE vendor
+#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_D:=.*/CONFIG_HIETH_MII_RMII_MODE_D:=1/' target/linux/hi35xx/config-3.0.8.phy-xm      # Set CONFIG_HIETH_MII_RMII_MODE_D=1   - XM+BLUE vendor
 #
-#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=1/' target/linux/hisilicon/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_U=1           - XM model
-#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=2/' target/linux/hisilicon/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_D=2           - XM model
+#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=1/' target/linux/hi35xx/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_U=1           - XM model
+#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=2/' target/linux/hi35xx/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_D=2           - XM model
 #
-#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hisilicon/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_U=0           - BLUE vendor
-#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hisilicon/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_D=1           - BLUE vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hi35xx/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_U=0           - BLUE vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hi35xx/config-3.0.8.phy-xm                      # Set CONFIG_HIETH_PHYID_D=1           - BLUE vendor
 
 
-#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_U:=.*/CONFIG_HIETH_MII_RMII_MODE_U:=1/' target/linux/hisilicon/config-3.4.35.phy-xm     # Set CONFIG_HIETH_MII_RMII_MODE_U=1   - XM+BLUE vendor
-#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_D:=.*/CONFIG_HIETH_MII_RMII_MODE_D:=1/' target/linux/hisilicon/config-3.4.35.phy-xm     # Set CONFIG_HIETH_MII_RMII_MODE_D=1   - XM+BLUE vendor
+#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_U:=.*/CONFIG_HIETH_MII_RMII_MODE_U:=1/' target/linux/hi35xx/config-3.4.35.phy-xm     # Set CONFIG_HIETH_MII_RMII_MODE_U=1   - XM+BLUE vendor
+#    sed -i 's/CONFIG_HIETH_MII_RMII_MODE_D:=.*/CONFIG_HIETH_MII_RMII_MODE_D:=1/' target/linux/hi35xx/config-3.4.35.phy-xm     # Set CONFIG_HIETH_MII_RMII_MODE_D=1   - XM+BLUE vendor
 #
-#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hisilicon/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_U=1           - XM vendor
-#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hisilicon/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_D=3           - XM vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hi35xx/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_U=1           - XM vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hi35xx/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_D=3           - XM vendor
 #
-#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hisilicon/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_U=0           - BLUE vendor
-#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hisilicon/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_D=1           - BLUE vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_U:=.*/CONFIG_HIETH_PHYID_U:=0/' target/linux/hi35xx/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_U=0           - BLUE vendor
+#    sed -i 's/CONFIG_HIETH_PHYID_D:=.*/CONFIG_HIETH_PHYID_D:=1/' target/linux/hi35xx/config-3.4.35.phy-xm                     # Set CONFIG_HIETH_PHYID_D=1           - BLUE vendor
 

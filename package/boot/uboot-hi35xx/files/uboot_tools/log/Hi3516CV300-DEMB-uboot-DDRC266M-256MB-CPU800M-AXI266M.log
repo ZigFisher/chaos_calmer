@@ -1,0 +1,150 @@
+#============================================================================== 
+#   Project   :  Hi3516CV300_SCKB
+#   DDR3 type :  4Gbit:256MB widthx16 
+#   DDR3 Width:  16bit 
+#   Work Freq :  DDRC clk freq =  266  MHz, prd = 2.500000 ns
+#============================================================================== 
+
+memory 0x10000000 0x20000000 noverify 
+#---------------PLL set----------------------
+memory set 0x12030078 32 0x200c75  
+
+
+memory set 0x12010030 32 0x00000000  
+     
+pause 0.1s
+      
+memory set 0x12010000 32 0x16000000      
+memory set 0x12010004 32 0x090030c8
+pause 0.1s   
+  
+memory set 0x12010030 32 0x00000025    
+pause 0.1s  
+
+#--------------dmc config---------------------     
+memory set 0x12061000 32 0x2       
+pause 0.1s      
+memory set 0x12060000 32 0x2000b    
+memory set 0x12065000 32 0x0
+memory set 0x12061000 32 0x2    
+memory set 0x12061024 32 0x8  
+memory set 0x12061028 32 0x0     
+memory set 0x12061040 32 0x2001       
+memory set 0x12061050 32 0x16       
+memory set 0x12061060 32 0x132
+memory set 0x12061080 32 0x34294f0b
+memory set 0x12061084 32 0x4136802c
+memory set 0x12061088 32 0x3300e000
+memory set 0x1206108c 32 0x57882524  
+memory set 0x12061090 32 0x700000   
+memory set 0x12061094 32 0x41105  
+memory set 0x120610c0 32 0x1       
+memory set 0x120610c4 32 0xc   
+memory set 0x12061200 32 0x0       
+memory set 0x12061020 32 0x8101 
+          
+#-------------ddr phy config---------------
+memory set 0x1206801c 32  0x5dc00080
+memory set 0x12068010 32  0x000a00ff
+memory set 0x12068014 32  0xf000f000
+memory set 0x12068030 32  0x20862221
+memory set 0x12068034 32  0x182c0e75
+memory set 0x12068038 32  0x20051608
+memory set 0x1206803c 32  0xa0000501
+memory set 0x12068040 32  0x403464bc
+memory set 0x120680bc 32  0x6
+memory set 0x12068064 32  0x41a40
+memory set 0x12068068 32  0x8
+memory set 0x12068070 32  0x406
+memory set 0x12068084 32  0x10400a
+memory set 0x12069208 32  0x2ff00
+memory set 0x12069308 32  0x2ff00
+memory set 0x120680b0 32  0x0
+memory set 0x12068078 32  0x3184
+memory set 0x12068208 32  0xf80000
+memory set 0x12068288 32  0xf80000
+memory set 0x1206802c 32  0x40022
+memory set 0x12069064 32  0xffff0770
+memory set 0x12068080 32  0x10400
+memory set 0x12068044 32  0x1
+memory set 0x120680d0 32  0xf806fb06
+memory set 0x120680dc 32  0xca620000
+memory set 0x12068114 32  0x28032100
+memory set 0x12068118 32  0x02040200
+memory set 0x1206811c 32  0x03000090
+memory set 0x12069018 32  0x03ba0000
+memory set 0x12069204 32  0xb4016805
+memory set 0x12069304 32  0xb4016805
+memory set 0x12069028 32  0x3cf03
+memory set 0x12069024 32  0x0
+memory set 0x1206921c 32  0x80000000
+memory set 0x12068274 32  0x8
+memory set 0x120682f4 32  0x8
+memory set 0x12069218 32  0x0
+memory set 0x120690c8 32  0x0
+memory set 0x1206901c 32  0x8c00000
+memory set 0x12069020 32  0xa
+memory set 0x12069234 32  0x8c0
+memory set 0x12069210 32  0xa
+memory set 0x12069248 32  0x303256
+memory set 0x120692c8 32  0x303256
+memory set 0x120681d4 32  0x0
+                 
+#---------BDL concig----------------- 
+
+memory set 0x12069070 32 0x800080
+memory set 0x12069050 32 0x0
+memory set 0x12069038 32 0x12
+memory set 0x12068128 32 0xa
+memory set 0x12069048 32 0x25
+memory set 0x120690AC 32 0x0
+memory set 0x120690B0 32 0x0
+memory set 0x120690B4 32 0x0
+memory set 0x120690B8 32 0x0
+memory set 0x12068140 32 0x0
+memory set 0x12068144 32 0x0
+memory set 0x12068148 32 0x0
+memory set 0x1206814C 32 0x0
+memory set 0x12068150 32 0x0
+memory set 0x120690BC 32 0x0
+memory set 0x120690C0 32 0x0
+memory set 0x120690C4 32 0x0
+
+#---------------ddr init-------------------
+
+memory set 0x12068004 32 0x17ff    
+pause 0.1s      
+memory set 0x12061088 32 0x3300e07e
+memory set 0x12068004 32 0x8000       
+memory set 0x12068004 32 0x0       
+memory set 0x12061000 32 0x2
+pause 0.1s 
+#-----------------DDRT-----------------
+
+
+#//datalane测试,0010写0xdffff 刚好从0x82000000 覆盖到0x8fffffff                                                                                                       
+#memory set 0x1200000c 32 0x01152                                                                   
+#memory set 0x12000010 32 0x1dffff                     //刚好从0x82000000 覆盖到0x8fffffff          
+#memory set 0x12000018 32 0x0                                                                                                                                            
+#memory set 0x1200001c 32 0x80000000                                                                
+#memory set 0x12000020 32 0x82000000                                                                
+#memory set 0x12000000 32 0x1                                                                    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,12 +5,12 @@
 # See /LICENSE for more information.
 #
 
-define Profile/None
-  NAME:=None
+define Profile/JVT_S323H16VF
+  NAME:=JVT S323H16VF
   PACKAGES:=busybox
 endef
 
-define Profile/None/Description
-	Package Description
+define Profile/JVT_S323H16VF/Description
+	JVT IP camera, model: S323H16VF, based on HI3516CV200
 endef
-$(eval $(call Profile,None))
+$(eval $(call Profile,JVT_S323H16VF))

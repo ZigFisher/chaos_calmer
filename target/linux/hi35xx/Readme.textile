@@ -3,21 +3,21 @@ h3. Hisilicon HI35xx SDK
 
 ---
 
-h4. HI3518Ev100_SDK_V1.0.B.0
+h4. Hi3518EV100R001C01SPC0B0
 
-* ?
-
----
-
-h4. HI3518Ev20x_SDK_V1.0.2.0
-
-* ?
+* /01.software/board/Hi3518_SDK_V1.0.B.0/package/osdrv/tools/pc_tools/uboot_tools
 
 ---
 
-h4. HI3516CV300_SDK_V1.0.1.1
+h4. Hi3518EV200R001C01SPC050
 
-* ?
+* /01.software/board/Hi3518E_SDK_V1.0.5.0/package/osdrv/tools/pc/uboot_tools
+
+---
+
+h4. Hi3516CV300R001C02SPC040
+
+* /01.software/board/Hi3516CV300_SDK_V2.0.4.0/package/osdrv/tools/pc/uboot_tools
 
 ---
 

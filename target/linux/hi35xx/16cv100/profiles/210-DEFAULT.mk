@@ -5,12 +5,12 @@
 # See /LICENSE for more information.
 #
 
-define Profile/None
-  NAME:=None
+define Profile/DEFAULT
+  NAME:=DEFAULT
   PACKAGES:=busybox
 endef
 
-define Profile/None/Description
+define Profile/DEFAULT/Description
 	Package Description
 endef
-$(eval $(call Profile,None))
+$(eval $(call Profile,DEFAULT))

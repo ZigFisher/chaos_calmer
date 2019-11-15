@@ -1,0 +1,195 @@
+
+memory 0x20000000 0x30000000 noverify 
+
+#---------------PLL set----------------------
+#16CV200
+memory set 0x20030000 32 0x12000000  
+memory set 0x20030004 32 0x01502064
+pause 0.1s
+
+memory set 0x20030030 32 0x00000121    
+pause 0.1s
+
+memory set 0x200300e4 32 0x000BF001
+
+
+
+
+
+
+
+#16a
+#slow
+#memory set 0x201200C8 32 0x0 
+#memory set 0x20050000 32 0x2 
+#pause 0.1s
+#pll
+#memory set 0x20030000 32 0x12000000  
+#memory set 0x20030004 32 0x01501032
+#memory set 0x20030008 32 0x33000000  
+#memory set 0x2003000c 32 0x0150104b
+#memory set 0x20030030 32 0x000ae020
+#pause 0.1s
+
+#memory set 0x20030104 32 0x100  
+#memory set 0x200300c0 32 0x66
+#misc 
+#memory set 0x20120014 32 0xf
+#pmc_pwm
+#memory set 0x20270000 32 0x5100c7
+#pause 0.1s
+#memory set 0x20270004 32 0x5100c7
+#pause 0.1s
+#memory set 0x20270008 32 0x5100c7
+#pause 0.1s
+#memory set 0x2027000c 32 0x5100c7 
+#pause 0.1s
+#memory set 0x20270010 32 0x7855
+#memory set 0x20270014 32 0x0
+#memory set 0x20270018 32 0x0
+#memory set 0x2027001c 32 0x0
+#memory set 0x20270020 32 0x0
+#pause 0.2s  
+
+#memory set 0x20050014 32 0xfff8000 
+#pause 0.1s
+#memory set 0x20050090 32 0xffffffff 
+
+#--------------ddrc config---------------------
+
+memory set 0x20111024 32 0x8  
+memory set 0x20111028 32 0x0  
+memory set 0x20111040 32 0x2001   
+memory set 0x20111050 32 0x16
+memory set 0x20111060 32 0x132
+memory set 0x20111080 32 0x44210e0a
+memory set 0x20111084 32 0xc836802a
+memory set 0x20111088 32 0x4400a000
+memory set 0x2011108c 32 0xffd1f534       
+memory set 0x20111090 32 0x00cf080c
+memory set 0x20111094 32 0x8005
+memory set 0x201110c0 32 0x1
+memory set 0x201110c4 32 0xc
+memory set 0x20111200 32 0x0
+memory set 0x20111020 32 0x8101
+
+
+
+#-------------ddr phy config---------------
+          
+memory set 0x20118018 32 0x7 
+pause 0.1s                
+memory set 0x20118018 32 0x0 
+pause 0.1s                 
+memory set 0x2011801c 32 0x80000080             
+memory set 0x20118010 32 0x008000ff                
+memory set 0x20118014 32 0xf000                 
+memory set 0x20118020 32 0x441                 
+memory set 0x20118080 32 0x0                    
+memory set 0x20118044 32 0x1                    
+memory set 0x201180d0 32 0xb036f026             
+memory set 0x2011802c 32 0x22             
+memory set 0x20118180 32 0xffff0770                
+memory set 0x20118030 32 0x71148866                 
+memory set 0x20118034 32 0x0c5428f4                  
+memory set 0x20118038 32 0x20041860                    
+memory set 0x2011803c 32 0x65c40e00                    
+memory set 0x20118040 32 0x6fa8       
+memory set 0x20118064 32 0x401940             
+memory set 0x20118068 32 0x8             
+memory set 0x20118088 32 0x03efb001                 
+memory set 0x201180b4 32 0x1                  
+memory set 0x20118070 32 0x305                    
+memory set 0x2011808c 32 0xff00ff00                    
+memory set 0x20118308 32 0x3 
+memory set 0x20118388 32 0x3
+memory set 0x20118270 32 0x3f00
+memory set 0x20118370 32 0x3f00
+memory set 0x201182f0 32 0xff80 
+memory set 0x201183f0 32 0xff80   
+memory set 0x2011824c 32 0x0                    
+memory set 0x2011823c 32 0x0 
+memory set 0x201182bc 32 0x0
+memory set 0x2011833c 32 0x0
+memory set 0x201183bc 32 0x0
+memory set 0x20118248 32 0x0 
+memory set 0x201182c8 32 0x0
+memory set 0x20118348 32 0x0                    
+memory set 0x201183c8 32 0x0 
+memory set 0x20118098 32 0x3
+memory set 0x2011809c 32 0x3
+memory set 0x20118090 32 0x00780000
+pause 0.01s 
+memory set 0x20118090 32 0x00700000
+memory set 0x20118240 32 0x78 
+memory set 0x201182c0 32 0x78
+memory set 0x20118340 32 0x78 
+memory set 0x201183c0 32 0x78 
+pause 0.01s 
+memory set 0x20118240 32 0x70 
+memory set 0x201182c0 32 0x70
+memory set 0x20118340 32 0x70 
+memory set 0x201183c0 32 0x70
+
+memory set 0x20118168 32 0x0 
+memory set 0x2011818c 32 0x480
+memory set 0x20118120 32 0x6 
+memory set 0x20118128 32 0x7
+memory set 0x20118130 32 0xf
+memory set 0x20118138 32 0x00070006 
+memory set 0x2011813c 32 0x00070006
+memory set 0x20118140 32 0x000b0004 
+memory set 0x20118144 32 0x00010003
+memory set 0x20118148 32 0x00050010 
+memory set 0x2011814c 32 0x0009000f
+memory set 0x20118150 32 0x0009000e 
+memory set 0x20118154 32 0x000d000e
+memory set 0x20118158 32 0x000a000e
+memory set 0x2011815c 32 0x0000000d
+memory set 0x20118160 32 0x000f0005
+memory set 0x20118164 32 0x00000007
+
+memory set 0x20118004 32 0xa000
+memory set 0x20118004 32 0x0
+memory set 0x2011800c 32 0x80000f0f
+
+       
+
+#---------------ddr init-------------------
+
+memory set 0x20110000 32 0x2000b
+memory set 0x20111000 32 0x2
+memory set 0x20118004 32 0x17ff
+pause 0.1s 
+
+memory set 0x20111088 32 0x4400a07a
+memory set 0x20118004 32 0x8000
+memory set 0x20118004 32 0x0     
+#-----------------DDRT-----------------
+
+
+#memory set 0x1210000c 32 0x01142      
+#memory set 0x12100010 32 0x3BFFFF      
+#memory set 0x12100018 32 0x0           
+#memory set 0x1210001c 32 0x80000000    
+#memory set 0x12100020 32 0x84000000    
+#memory set 0x12100030 32 0x7           
+#memory set 0x12100000 32 0x1   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,156 @@
+#============================================================================== 
+#   Project   :  Hi3516EV100_DEMB
+#   DDR2 type :  512Mbit:64MB widthx16 
+#   DDR2 Width:  16bit 
+#   Work Freq :  DDRC clk freq =  266  MHz, prd = 2.500000 ns
+#============================================================================== 
+
+memory 0x10000000 0x20000000 noverify 
+#---------------PLL set----------------------
+
+memory set 0x12010030 32 0x0
+pause 0.1s
+memory set 0x12010000 32 0x16000000
+memory set 0x12010004 32 0x90030c8
+pause 0.1s
+memory set 0x12010030 32 0x00000025 
+pause 0.1s
+
+
+
+#---------------PWM set----------------------
+memory set 0x12030078 32 0x3e0c75
+pause 0.1s
+
+#--------------dmc config---------------------              
+memory set 0x12060000 32 0x2000b    
+memory set 0x12065000 32 0x0   
+memory set 0x12061024 32 0x8  
+memory set 0x12061028 32 0x0     
+memory set 0x12061040 32 0x2001       
+memory set 0x12061050 32 0x15       
+memory set 0x12061060 32 0x22
+memory set 0x12061070 32 0x400f73       
+memory set 0x12061074 32 0x0
+memory set 0x12061080 32 0x33210f0b
+memory set 0x12061084 32 0x4136701c
+memory set 0x12061088 32 0x3300E000
+memory set 0x1206108c 32 0x57882523  
+memory set 0x12061090 32 0x700000   
+memory set 0x12061094 32 0x41105  
+memory set 0x120610c0 32 0x1       
+memory set 0x120610c4 32 0xc   
+memory set 0x12061200 32 0x0       
+memory set 0x12061020 32 0x8100 
+          
+#-------------ddr phy config---------------
+memory set 0x1206801c 32  0x5dc00080
+memory set 0x12068010 32  0x000a00ff
+memory set 0x12068014 32  0xf000f000
+memory set 0x12068030 32  0x20862221
+memory set 0x12068034 32  0x181c0e75
+memory set 0x12068038 32  0x20051608
+memory set 0x1206803c 32  0xa0000501
+memory set 0x12068040 32  0x423464bc
+memory set 0x120680bc 32  0x8
+memory set 0x12068064 32  0x400f73
+memory set 0x12068068 32  0x0
+memory set 0x12068070 32  0x306
+memory set 0x12068084 32  0x10400a
+memory set 0x12069208 32  0x2ff00
+memory set 0x12069308 32  0x2ff00
+memory set 0x120680b0 32  0x0
+memory set 0x12068078 32  0x3184
+memory set 0x12068208 32  0xf80000
+memory set 0x12068288 32  0xf80000
+memory set 0x1206802c 32  0x40021
+memory set 0x12069064 32  0xffff0770
+memory set 0x12068080 32  0x10400
+memory set 0x12068044 32  0x1
+memory set 0x120680d0 32  0xf806fb06
+memory set 0x120680dc 32  0xca620000
+memory set 0x12068114 32  0x28032100
+memory set 0x12068118 32  0x02040200
+memory set 0x1206811c 32  0x03000090
+memory set 0x12069018 32  0x03cc0000
+memory set 0x12069204 32  0x2401f805
+memory set 0x12069304 32  0x2401f805
+memory set 0x12069028 32  0x3cf03
+memory set 0x12069024 32  0x0
+memory set 0x1206921c 32  0x80000000
+memory set 0x12068274 32  0x8
+memory set 0x120682f4 32  0x8
+memory set 0x12069218 32  0x0
+memory set 0x120690c8 32  0x0
+memory set 0x1206901c 32  0x8c00000
+memory set 0x12069020 32  0xa
+memory set 0x12069234 32  0x8c0
+memory set 0x12069210 32  0xa
+memory set 0x12069248 32  0x303256
+memory set 0x120692c8 32  0x303256
+memory set 0x12069258 32  0x3000
+memory set 0x120681d4 32  0x0
+
+memory set 0x12068074 32 0x40000000
+                 
+#---------BDL concig----------------- 
+
+memory set 0x12069070 32 0x800040
+memory set 0x12069050 32 0x0
+memory set 0x12069038 32 0xe
+memory set 0x12068128 32 0xe
+memory set 0x12069048 32 0xe
+memory set 0x120690ac 32 0x0
+memory set 0x120690b0 32 0x0
+memory set 0x120690b4 32 0x0
+memory set 0x120690b8 32 0x0
+memory set 0x12068140 32 0x0
+memory set 0x12068144 32 0x0
+memory set 0x12068148 32 0x0
+memory set 0x1206814C 32 0x0
+memory set 0x12068150 32 0x0
+memory set 0x120690BC 32 0x0
+memory set 0x120690C0 32 0x0
+memory set 0x120690C4 32 0x0
+
+
+#---------------ddr init-------------------
+memory set 0x12068004 32 0x100f
+memory set 0x12061000 32 0x2   
+pause 0.1s   
+memory set 0x12061004 32 0x1 
+pause 0.1s  
+memory set 0x12068004 32 0x80000361
+pause 0.1s
+
+memory set 0x12061088 32 0x3300E040
+ 
+#-----------------DDRT-----------------
+#write address 0x80000000 - 0x83ffff00 with ddrt
+
+#memory set 0x1120000c 32 0x01152
+#memory set 0x11200010 32 0x1ffff
+#memory set 0x11200018 32 0x0
+#memory set 0x1120001c 32 0x80000000
+#memory set 0x11200020 32 0x80000000
+#memory set 0x11200000 32 0x1001
+
+#result:read register 0x11200004 = 0x3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,21 +35,13 @@ endef
 
 UBOOTS:=16cv100
 UBOOTS+=16cv200
-# UBOOTS+=16cv300 ?
-# UBOOTS+=16ev100 ?
+# UBOOTS+=16cv300 yes
+# UBOOTS+=16ev100 yes
 UBOOTS+=18av100
 UBOOTS+=18cv100
 UBOOTS+=18ev100
 UBOOTS+=18ev200
 UBOOTS+=18ev201
-
-# hi3516c_config
-# hi3516cv200_config
-# hi3518a_config
-# hi3518c_config
-# hi3518e_config
-# hi3518ev200_config
-# hi3518ev201_config
 
 # ?
 # hi3520d_config
@@ -80,31 +72,31 @@ ifdef BUILD_VARIANT
 $(eval $(call uboot/$(BUILD_VARIANT)))
 ifeq ($(BUILD_VARIANT), 16cv100)
     UBOOT_CONFIG:=hi3516c_config
-	REG_FILE:=reg_info_hi3516c.bin
+	REG_FILE:=reg_info_hi3516cv100.bin
 endif
 ifeq ($(BUILD_VARIANT), 16cv200)
     UBOOT_CONFIG:=hi3516cv200_config
-	REG_FILE:=reg_info_hi3516c.bin
+	REG_FILE:=reg_info_hi3516cv200.bin
 endif
 ifeq ($(BUILD_VARIANT), 18av100)
     UBOOT_CONFIG:=hi3518a_config
-	REG_FILE:=reg_info_hi3518a.bin
+	REG_FILE:=reg_info_hi3518av100.bin
 endif
 ifeq ($(BUILD_VARIANT), 18cv100)
     UBOOT_CONFIG:=hi3518c_config
-	REG_FILE:=reg_info_hi3518c.bin
+	REG_FILE:=reg_info_hi3518cv100.bin
 endif
 ifeq ($(BUILD_VARIANT), 18ev100)
     UBOOT_CONFIG:=hi3518e_config
-	REG_FILE:=reg_info_hi3518e.bin
+	REG_FILE:=reg_info_hi3518ev100.bin
 endif
 ifeq ($(BUILD_VARIANT), 18ev200)
     UBOOT_CONFIG:=hi3518ev200_config
-	REG_FILE:=reg_info_hi3518e.bin
+	REG_FILE:=reg_info_hi3518ev200.bin
 endif
 ifeq ($(BUILD_VARIANT), 18ev201)
     UBOOT_CONFIG:=hi3518ev201_config
-	REG_FILE:=reg_info_hi3518e.bin
+	REG_FILE:=reg_info_hi3518ev201.bin
 endif
 
 VERSION_NUMBER:=15.05.1
