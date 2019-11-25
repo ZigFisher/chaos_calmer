@@ -6,7 +6,7 @@
 . /lib/functions/uci-defaults.sh
 . /lib/hi35xx.sh
 
-board=$(hisilicon_board_name)
+board=$(hi35xx_board_name)
 
 case "$board" in
 hi3516cv100)

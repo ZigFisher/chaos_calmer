@@ -255,7 +255,7 @@
 #define CONFIG_AUTO_UPDATE			1 
 #ifdef CONFIG_AUTO_UPDATE
 	#define CONFIG_AUTO_SD_UPDATE		1
-	#define CONFIG_AUTO_USB_UPDATE		1
+/*	#define CONFIG_AUTO_USB_UPDATE		1 */
 #endif
 
 #define __LITTLE_ENDIAN				1

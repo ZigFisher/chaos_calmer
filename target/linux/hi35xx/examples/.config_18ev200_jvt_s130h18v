@@ -2076,7 +2076,7 @@ CONFIG_PACKAGE_wireless-tools=m
 #
 # Boot Loaders
 #
-# CONFIG_PACKAGE_uboot-hi35xx-18ev200 is not set
+CONFIG_PACKAGE_uboot-hi35xx-18ev200=y
 
 #
 # Development
@@ -4231,6 +4231,15 @@ CONFIG_PACKAGE_minihttp=y
 #
 CONFIG_PACKAGE_demo=y
 CONFIG_PACKAGE_kdb=m
+
+#
+# Sensors
+#
+CONFIG_PACKAGE_hi35xx_sensor_ar0130=m
+CONFIG_PACKAGE_hi35xx_sensor_imx222=m
+# CONFIG_PACKAGE_hi35xx_sensor_imx323 is not set
+CONFIG_PACKAGE_hi35xx_sensor_jxf23=m
+CONFIG_PACKAGE_hi35xx_sensor_ov9732=m
 
 #
 # Tools

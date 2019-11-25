@@ -1,9 +1,9 @@
 #!/bin/sh
 
-do_hisilicon() {
+do_hi35xx() {
 	. /lib/hi35xx.sh
 
-	hisilicon_board_detect
+	hi35xx_board_detect
 }
 
-boot_hook_add preinit_main do_hisilicon
+boot_hook_add preinit_main do_hi35xx

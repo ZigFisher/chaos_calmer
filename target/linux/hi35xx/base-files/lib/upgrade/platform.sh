@@ -7,7 +7,7 @@
 RAMFS_COPY_DATA=/lib/hi35xx.sh
 
 platform_check_image() {
-	local board=$(hisilicon_board_name)
+	local board=$(hi35xx_board_name)
 	local magic_long="$(get_magic_long "$1")"
 
 	[ "$#" -gt 1 ] && return 1
@@ -38,7 +38,7 @@ platform_check_image() {
 }
 
 platform_do_upgrade() {
-	local board=$(hisilicon_board_name)
+	local board=$(hi35xx_board_name)
 
 	case "$board" in
 	chupa|chups)

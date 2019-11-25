@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # ZFT Lab. 2018 | https://zftlab.org/pages/2018020900.html
-# Hisilicon HI35xx simple GPIO monitor
+# HI35xx simple GPIO monitor
 
 
 cmd="$1"

@@ -1,0 +1,74 @@
+--- a/drivers/mtd/devices/hifmc100/hifmc_spi_nor_ids.c	2019-10-12 00:35:50.000000000 +0300
++++ b/drivers/mtd/devices/hifmc100/hifmc_spi_nor_ids.c	2019-10-12 23:40:18.739459246 +0300
+@@ -2180,6 +2180,30 @@
+ 		&spi_driver_no_qe,
+ 	},
+ 
++/*need to add dual rw*/
++	{
++		"EN25QH64", {0x1c, 0x70, 0x17}, 3, (_64K * 128),  _64K, 3,
++		{
++			&READ_STD(0, INFINITE, 50),
++			&READ_FAST(1, INFINITE, 100),
++			&READ_DUAL(1, INFINITE, 80),
++			&READ_DUAL_ADDR(1, INFINITE, 80),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&READ_QUAD_ADDR(3, INFINITE, 50),
++#endif
++			0
++		},
++		{
++			&WRITE_STD(0, 256, 80),
++			0
++		},
++		{
++			&ERASE_SECTOR_64K(0, _64K, 80/*104*/),
++			0
++		},
++		&spi_driver_general,
++	},
++
+ 	{
+ 		"EN25Q128", {0x1c, 0x30, 0x18}, 3, (_64K * 256),  _64K, 3,
+ 		{
+@@ -2769,3 +2793,4 @@
+ 
+ /*****************************************************************************/
+ #endif
++
+--- a/drivers/mtd/devices/hifmc100/hifmc_spi_nor_ids.c	2019-10-12 00:35:50.000000000 +0300
++++ b/drivers/mtd/devices/hifmc100/hifmc_spi_nor_ids.c	2019-10-12 23:40:18.739459246 +0300
+@@ -2276,6 +2276,33 @@
+ 		&spi_driver_no_qe,
+ 	},
+ 
++	{
++		"EN25HQ128", {0x1c, 0x70, 0x18}, 3, (_64K * 256),  _64K, 3,
++		{
++			&READ_STD(0, INFINITE, 50),
++			&READ_FAST(1, INFINITE, 104),
++			&READ_DUAL(1, INFINITE, 80),
++			&READ_DUAL_ADDR(1, INFINITE, 80),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&READ_QUAD_ADDR(3, INFINITE, 50),
++#endif
++			0
++		},
++
++		{
++			&WRITE_STD(0, 256, 104),
++			0
++		},
++
++		{
++			&ERASE_SECTOR_64K(0, _64K, 80/*104*/),
++			0
++		},
++		&spi_driver_general,
++	},
++
++
++
+ 	/* ESMT */
+ 	{
+ 		"F25L64QA", {0x8C, 0x41, 0x17}, 3, (_64K * 128),  _64K, 3,

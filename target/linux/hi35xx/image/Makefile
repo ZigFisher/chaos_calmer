@@ -38,6 +38,7 @@ define Build/uImage
 		-C $(1) -a $(KERNEL_LOADADDR) -e $(if $(KERNEL_ENTRY),$(KERNEL_ENTRY),$(KERNEL_LOADADDR)) \
 		-n '$(IMAGE_HEADER_INFO)' -d $@ $@.new
 	@mv $@.new $@
+# cp $(KDIR)/root.squashfs $(BIN_DIR)/$(IMG_PREFIX)-default-root.squashfs
 endef
 
 define Image/pad-to
@@ -76,8 +77,8 @@ define Device/hi35xx-v1
 	KERNEL_NAME = zImage
 	KERNEL_SUFFIX := -uImage
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE:=2048k
-	ROOT_FS_SIZE:=2048k
+	KERNEL_SIZE:=3072k
+	ROOT_FS_SIZE:=5120k
 	KERNEL_PAD_SIZE:=2097088
 	KERNEL := kernel-bin | uImage none
 	KERNEL_INITRAMFS := kernel-bin | uImage none
@@ -117,6 +118,14 @@ ifeq ($(SUBTARGET),16cv200)
 $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV200,320k,DEFAULT)) # @flyrouter
 $(eval $(call NewDevice,jvt-s323h16vf,JVT-S323H16VF,JVT S323H16VF,IMX323,HI3516CV200,320k,JVT_S323H16VF)) # @flyrouter
 endif # ifeq ($(SUBTARGET),16cv200)
+
+ifeq ($(SUBTARGET),16cv300)
+$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV300,320k,DEFAULT)) # @flyrouter
+endif # ifeq ($(SUBTARGET),16cv300)
+
+ifeq ($(SUBTARGET),16ev100)
+$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516EV100,320k,DEFAULT)) # @flyrouter
+endif # ifeq ($(SUBTARGET),16ev100)
 
 ifeq ($(SUBTARGET),18cv100)
 $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518CV100,320k,DEFAULT)) # @flyrouter

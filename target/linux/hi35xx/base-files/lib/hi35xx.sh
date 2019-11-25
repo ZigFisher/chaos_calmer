@@ -3,10 +3,10 @@
 # Copyright (C) 2012 OpenWrt.org
 #
 
-HISILICON_BOARD_NAME=
-HISILICON_MODEL=
+HI35XX_BOARD_NAME=
+HI35XX_MODEL=
 
-hisilicon_board_detect() {
+hi35xx_board_detect() {
 	local machine
 	local name
 
@@ -37,16 +37,16 @@ hisilicon_board_detect() {
 
 	[ -z "$name" ] && name="unknown"
 
-	[ -z "$HISILICON_BOARD_NAME" ] && HISILICON_BOARD_NAME="$name"
-	[ -z "$HISILICON_MODEL" ] && HISILICON_MODEL="$machine"
+	[ -z "$HI35XX_BOARD_NAME" ] && HI35XX_BOARD_NAME="$name"
+	[ -z "$HI35XX_MODEL" ] && HI35XX_MODEL="$machine"
 
 	[ -e "/tmp/sysinfo/" ] || mkdir -p "/tmp/sysinfo/"
 
-	echo "$HISILICON_BOARD_NAME" > /tmp/sysinfo/board_name
-	echo "$HISILICON_MODEL" > /tmp/sysinfo/model
+	echo "$HI35XX_BOARD_NAME" > /tmp/sysinfo/board_name
+	echo "$HI35XX_MODEL" > /tmp/sysinfo/model
 }
 
-hisilicon_board_name() {
+hi35xx_board_name() {
 	local name
 
 	[ -f /tmp/sysinfo/board_name ] && name=$(cat /tmp/sysinfo/board_name)

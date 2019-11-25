@@ -38,15 +38,30 @@ case $build in
     start_build
     ;;
 
-  hi3516cv200|hi3518ev200|hi3518ev201)
+
+
+  hi3516cv200)
+    SOC=${build}
+    prepare_image_config ${SOC} "3.4.35" "config_16cv200_jvt_s323h16vf"
+    start_build
+    ;;
+
+  hi3518ev200|hi3518ev201)
     SOC=${build}
     prepare_image_config ${SOC} "3.4.35" "config_18ev200_jvt_s130h18v"
     start_build
     ;;
 
-  hi3516cv300|hi3516ev100)
+
+  hi3516cv300)
     SOC=${build}
-    prepare_image_config ${SOC} "3.18.20" "config_armv5tej_luci_default"
+    prepare_image_config ${SOC} "3.18.20" "config_16cv300_default"
+    start_build
+    ;;
+
+  hi3516ev100)
+    SOC=${build}
+    prepare_image_config ${SOC} "3.18.20" "config_16ev100_default"
     start_build
     ;;
 
@@ -56,14 +71,21 @@ case $build in
     start_build
     ;;
 
+#################
 
-  rotek)
+  18ev200_jvt_s130h18v)
     SOC=${build}
-    prepare_image_config ${SOC} "3.4.35" "config_armv5tej_luci_rotek"
+    prepare_image_config ${SOC} "3.4.35" "config_18ev200_jvt_s130h18v"
     start_build
     ;;
 
+  18ev200_switcam_hs303)
+    SOC=${build}
+    prepare_image_config ${SOC} "3.4.35" "config_18ev200_switcam_hs303"
+    start_build
+    ;;
 
+#################
 
   release)
     # Rebuild kernel, rootfs, firmware
@@ -155,11 +177,16 @@ case $build in
     #scp ./bin/hi35xx/packages/glutinium/*.ipk zig@172.28.200.74:~
     ;;
 
+  uboot)
+    make -j1 V=s package/boot/uboot-hi35xx/{clean,compile,install}
+    ;;
+
   *)
     echo -e "\n#####################################"
     echo -e "\nMore information on the site - http://openipc.org\n"
     echo -e "\nPLEASE SELECT ONE OPTION IN COMMAND LINE"
-    echo -e "\nBuild firmware section:\n  hi3516cv100\n  hi3518av100\n  hi3518cv100\n  hi3518ev100\n\n  hi3516cv200\n  hi3518ev200\n  hi3518ev201\n\n  hi3516сv300\n  hi3516ev100\n\n  hi3520dv100"
+    echo -e "\nBuild firmware section:\n  hi3516cv100\n  hi3518av100\n  hi3518cv100\n  hi3518ev100\n\n  hi3516cv200\n  hi3518ev200\n  hi3518ev201\n\n  hi3516cv300\n  hi3516ev100\n\n  hi3520dv100"
+    echo -e "\nProfiles:\n  18ev200_jvt_s130h18v\n  18ev200_switcam_hs303"
     echo -e "\nSystem command section:\n  project\n  push\n  update\n  upload"
     echo -e "\nRebuild software section:\n  osdrv2\n  release"
     echo -e "\n#####################################"

@@ -1,0 +1,23 @@
+--- a/common/Makefile	2018-04-26 06:57:52.000000000 +0300
++++ a/common/Makefile	2019-11-23 23:16:50.036060696 +0300
+@@ -233,6 +233,20 @@
+ bootss2:
+ ifdef CONFIG_SNAPSHOT_BOOT
+ 	rm bootss2.a -rf
++
++
++ifeq ($(CROSS_COMPILE),arm-openwrt-linux-uclibcgnueabi-)
++ifdef CONFIG_HI3518EV200
++	cp cmd_bootss2_v400_hi3518ev200 bootss2.a -rf
++else
++	cp cmd_bootss2_v400 bootss2.a -rf
++endif
++ifdef CONFIG_HI3516CV300
++	cp cmd_bootss2_v600_hi3516cv300 bootss2.a -rf
++endif #/* end CONFIG_HI3516CV300 */
++endif
++
++
+ ifeq ($(CROSS_COMPILE),arm-hisiv300-linux-)
+ ifdef CONFIG_HI3518EV200
+ 	cp cmd_bootss2_v300_hi3518ev200 bootss2.a -rf

@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=u-boot
-PKG_VERSION:=2010.06
+PKG_VERSION:=2010.06_openipc
 PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
@@ -24,7 +24,7 @@ PKG_LICENSE_FILES:=Licenses/README
 
 include $(INCLUDE_DIR)/package.mk
 
-IMG_PREFIX:=openwrt-$(if $(CONFIG_VERSION_FILENAMES),$(VERSION_NUMBER)-)$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))
+#IMG_PREFIX:=openwrt-$(if $(CONFIG_VERSION_FILENAMES),$(VERSION_NUMBER)-)$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))
 
 define uboot/Default
   TITLE:=
@@ -35,8 +35,8 @@ endef
 
 UBOOTS:=16cv100
 UBOOTS+=16cv200
-# UBOOTS+=16cv300 yes
-# UBOOTS+=16ev100 yes
+UBOOTS+=16cv300
+UBOOTS+=16ev100
 UBOOTS+=18av100
 UBOOTS+=18cv100
 UBOOTS+=18ev100
@@ -78,6 +78,14 @@ ifeq ($(BUILD_VARIANT), 16cv200)
     UBOOT_CONFIG:=hi3516cv200_config
 	REG_FILE:=reg_info_hi3516cv200.bin
 endif
+ifeq ($(BUILD_VARIANT), 16cv300)
+    UBOOT_CONFIG:=hi3516cv300_config
+	REG_FILE:=reg_info_hi3516cv300.bin
+endif
+ifeq ($(BUILD_VARIANT), 16ev100)
+    UBOOT_CONFIG:=hi3516ev100_config
+	REG_FILE:=reg_info_hi3516ev100.bin
+endif
 ifeq ($(BUILD_VARIANT), 18av100)
     UBOOT_CONFIG:=hi3518a_config
 	REG_FILE:=reg_info_hi3518av100.bin
@@ -99,8 +107,9 @@ ifeq ($(BUILD_VARIANT), 18ev201)
 	REG_FILE:=reg_info_hi3518ev201.bin
 endif
 
-VERSION_NUMBER:=15.05.1
-UBOOT_IMAGE:="openwrt-$(if $(CONFIG_VERSION_FILENAMES),$(VERSION_NUMBER)-)$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))-u-boot.bin"
+#VERSION_NUMBER:=15.05.1
+#UBOOT_IMAGE:="openwrt-$(if $(CONFIG_VERSION_FILENAMES),$(VERSION_NUMBER)-)$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))-u-boot.bin"
+UBOOT_IMAGE:="openwrt-$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))-uboot.bin"
 endif
 
 define Build/Prepare
@@ -121,8 +130,13 @@ endef
 
 define Package/uboot/install/template
 define Package/uboot-hi35xx-$(1)/install
-	$(PKG_BUILD_DIR)/uboot_tools/mkboot.sh $(PKG_BUILD_DIR)/uboot_tools/$(REG_FILE) $(PKG_BUILD_DIR)/u-boot.bin $(PKG_BUILD_DIR)/$(UBOOT_IMAGE)
-	$(CP) $(PKG_BUILD_DIR)/$(UBOOT_IMAGE) $(BIN_DIR)/
+	$(CP) $(PKG_BUILD_DIR)/u-boot.bin $(PKG_BUILD_DIR)/full-boot.bin
+	$(CP) $(PKG_BUILD_DIR)/uboot_tools/$(REG_FILE) $(PKG_BUILD_DIR)/.reg
+	$(MAKE) -C $(PKG_BUILD_DIR) CROSS_COMPILE=$(TARGET_CROSS) mini-boot.bin
+	$(CP) $(PKG_BUILD_DIR)/mini-boot.bin $(BIN_DIR)/$(UBOOT_IMAGE)
+	#
+	# $(PKG_BUILD_DIR)/uboot_tools/mkboot.sh $(PKG_BUILD_DIR)/uboot_tools/$(REG_FILE) $(PKG_BUILD_DIR)/u-boot.bin $(PKG_BUILD_DIR)/$(UBOOT_IMAGE)
+	# $(CP) $(PKG_BUILD_DIR)/$(UBOOT_IMAGE) $(BIN_DIR)/
 endef
 endef
 
