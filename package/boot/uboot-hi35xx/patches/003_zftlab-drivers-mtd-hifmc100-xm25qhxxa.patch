@@ -1,0 +1,57 @@
+--- a/drivers/mtd/spi/hifmc100/hifmc_spi_nor_ids.c	2018-04-26 06:57:52.000000000 +0300
++++ b/drivers/mtd/spi/hifmc100/hifmc_spi_nor_ids.c	2019-11-26 17:50:55.552278366 +0300
+@@ -227,6 +227,54 @@
+ /*****************************************************************************/
+ static struct spi_nor_info hifmc_spi_nor_info_table[] = {
+ 	/* name		id	id_len	chipsize(Bytes)	erasesize */
++
++	/* Xinxin MXC */
++	{
++		"xm25qh64a", {0x20, 0x70, 0x17}, 3, _8M, _64K, 3,
++		{
++			&READ_STD(0, INFINITE, 66),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&READ_QUAD(1, INFINITE, 80),
++#endif
++			0
++		},
++		{
++			&WRITE_STD(0, 256, 100),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&WRITE_QUAD(0, 256, 80),
++#endif
++			0
++		},
++		{
++			&ERASE_SECTOR_64K(0, _64K, 100),
++			0
++		},
++			&spi_driver_general,
++	},
++
++	{
++		"xm25qh128a", {0x20, 0x70, 0x18}, 3, _16M, _64K, 3,
++		{
++			&READ_STD(0, INFINITE, 66),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&READ_QUAD(1, INFINITE, 80),
++#endif
++			0
++		},
++		{
++			&WRITE_STD(0, 256, 100),
++#ifndef CONFIG_CLOSE_SPI_8PIN_4IO
++			&WRITE_QUAD(0, 256, 80),
++#endif
++			0
++		},
++		{
++			&ERASE_SECTOR_64K(0, _64K, 100),
++			0
++		},
++		&spi_driver_general,
++	},
++
+ 	{
+ 		"at25fs010", {0x1f, 0x66, 0x01}, 3, _128K, _32K, 3,
+ 		{
