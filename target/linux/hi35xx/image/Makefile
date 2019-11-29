@@ -31,6 +31,10 @@ define Build/tailed-bin
 	echo $(BIN_TAIL) >> $@
 endef
 
+define Image/mkfs/squashfs
+	$(STAGING_DIR_HOST)/bin/mksquashfs4 $(TARGET_DIR) $(BIN_DIR)/$(IMG_PREFIX)-default-root.squashfs -nopad -noappend -root-owned -comp $(SQUASHFSCOMP) $(SQUASHFSOPT) -processors $(if $(CONFIG_PKG_BUILD_JOBS),$(CONFIG_PKG_BUILD_JOBS),1)
+endef
+
 # Build commands that can be called from Device/* templates
 define Build/uImage
 	mkimage -A $(LINUX_KARCH) \
@@ -38,7 +42,6 @@ define Build/uImage
 		-C $(1) -a $(KERNEL_LOADADDR) -e $(if $(KERNEL_ENTRY),$(KERNEL_ENTRY),$(KERNEL_LOADADDR)) \
 		-n '$(IMAGE_HEADER_INFO)' -d $@ $@.new
 	@mv $@.new $@
-# cp $(KDIR)/root.squashfs $(BIN_DIR)/$(IMG_PREFIX)-default-root.squashfs
 endef
 
 define Image/pad-to
@@ -60,8 +63,7 @@ DEVICE_VARS += CPU_MODEL
 DEVICE_VARS += UBOOTOFFSET
 
 define Build/sysupgrade-header
-	( printf "UB:32s32s" ${UBOOTOFFSET} ${FLASH_SIZE} ${IMAGE_SIZE} && \
-	printf "CI%08x%08x%32s" \
+	( printf "CI%08x%08x%32s" \
 		$$(($(subst k,* 1024,$(subst m, * 1024k,$(KERNEL_SIZE))))) $$(($(subst k,* 1024,$(subst m, * 1024k,$(ROOT_FS_SIZE))))) \
 		$$(md5sum < $@ | awk '{print $$1}') | \
 		dd bs=64k conv=sync; \
@@ -70,6 +72,7 @@ define Build/sysupgrade-header
 	@mv $@.new $@
 endef
 
+# TODO: create separation of device template versions
 define Device/hi35xx-v1
 	IMAGES := sysupgrade.bin factory.bin
 	IMAGE_PREFIX := $(IMG_PREFIX)-$(1)
@@ -115,34 +118,50 @@ endef
 
 
 ifeq ($(SUBTARGET),16cv200)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV200,320k,DEFAULT)) # @flyrouter
-$(eval $(call NewDevice,jvt-s323h16vf,JVT-S323H16VF,JVT S323H16VF,IMX323,HI3516CV200,320k,JVT_S323H16VF)) # @flyrouter
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV200,320k,DEFAULT)) # @flyrouter
+	ifeq ($(CONFIG_TARGET_hi35xx_16cv200_JVT_S323H16VF),y)
+		$(eval $(call NewDevice,jvt-s323h16vf,JVT-S323H16VF,JVT S323H16VF,IMX323,HI3516CV200,320k,JVT_S323H16VF)) # @flyrouter
+	endif 
 endif # ifeq ($(SUBTARGET),16cv200)
 
 ifeq ($(SUBTARGET),16cv300)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV300,320k,DEFAULT)) # @flyrouter
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516CV300,320k,DEFAULT)) # @flyrouter
 endif # ifeq ($(SUBTARGET),16cv300)
 
 ifeq ($(SUBTARGET),16ev100)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516EV100,320k,DEFAULT)) # @flyrouter
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3516EV100,320k,DEFAULT)) # @flyrouter
 endif # ifeq ($(SUBTARGET),16ev100)
 
 ifeq ($(SUBTARGET),18cv100)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518CV100,320k,DEFAULT)) # @flyrouter
-$(eval $(call NewDevice,beward-ds06m,BW-DS06M,Beward DS06M,IMX138,HI3518CV100,512k,BEWARD_DS06M)) # @ussh
-$(eval $(call NewDevice,zmodo-zhixu1dmac,Zmodo-ZH-IXU1D-MAC,Zmodo ZH-IXU1D-MAC,OV9712,HI3518CV100,512k,ZMODO_ZH_IXU1D_MAC)) # @ussh
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518CV100,320k,DEFAULT)) # @flyrouter
+	ifeq ($(CONFIG_TARGET_hi35xx_18cv100_BEWARD_DS06M),y)
+		$(eval $(call NewDevice,beward-ds06m,BW-DS06M,Beward DS06M,IMX138,HI3518CV100,512k,BEWARD_DS06M)) # @ussh
+	endif 
+	ifeq ($(CONFIG_TARGET_hi35xx_18cv100_ZMODO_ZH_IXU1D_MAC),y)
+		$(eval $(call NewDevice,zmodo-zhixu1dmac,Zmodo-ZH-IXU1D-MAC,Zmodo ZH-IXU1D-MAC,OV9712,HI3518CV100,512k,ZMODO_ZH_IXU1D_MAC)) # @ussh
+	endif 
 endif # ifeq ($(SUBTARGET),18cv100)
 
 ifeq ($(SUBTARGET),18ev100)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV100,320k,DEFAULT)) # @flyrouter
-$(eval $(call NewDevice,jvt-ip225ev1,JVT-IP-225E-V1,JVT IP-225E-V1,IMX225,HI3518EV100,512k,JVT_IP_225E_V1)) # @ussh
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV100,320k,DEFAULT)) # @flyrouter
+	ifeq ($(CONFIG_TARGET_hi35xx_18ev100_JVT_IP_225E_V1),y)
+		$(eval $(call NewDevice,jvt-ip225ev1,JVT-IP-225E-V1,JVT IP-225E-V1,IMX225,HI3518EV100,512k,JVT_IP_225E_V1)) # @ussh
+	endif 
 endif # ifeq ($(SUBTARGET),18ev100)
 
 ifeq ($(SUBTARGET),18ev200)
-$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV200,512k,DEFAULT)) # @flyrouter
-$(eval $(call NewDevice,jvt-s130h18v,JVT-S130H18V,JVT S130H18V,AR0130,HI3518EV200,320k,JVT_S130H18V)) # @flyrouter
-$(eval $(call NewDevice,switcam-hs303,SWITCAM-HS303,SWITCAM HS303,JXF22,HI3518EV200,320k,SWITCAM_HS303)) # @flyrouter
+	$(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV200,512k,DEFAULT)) # @flyrouter
+	ifeq ($(CONFIG_TARGET_hi35xx_18ev200_JVT_S130H18V),y)
+		$(eval $(call NewDevice,jvt-s130h18v,JVT-S130H18V,JVT S130H18V,AR0130,HI3518EV200,320k,JVT_S130H18V)) # @flyrouter
+	endif 
+	ifeq ($(CONFIG_TARGET_hi35xx_118ev200_SWITCAM_HS303),y)
+		$(eval $(call NewDevice,switcam-hs303,SWITCAM-HS303,SWITCAM HS303,JXF22,HI3518EV200,320k,SWITCAM_HS303)) # @flyrouter
+	endif 
 endif # ifeq ($(SUBTARGET),18ev200)
 
+define Image/Build/squashfs
+	cp $(KDIR)/root.squashfs $(BIN_DIR)/$(IMG_PREFIX)-root.squashfs
+	dd if=$(KDIR)/root.$(1) of=$(BIN_DIR)/$(IMG_PREFIX)-$(1).img bs=131072 conv=sync
+endef
 
 $(eval $(call BuildImage))
