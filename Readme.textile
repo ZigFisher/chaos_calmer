@@ -14,7 +14,7 @@ h4. Usage example
 pre. git clone https://github.com/OpenIPC/chaos_calmer.git OpenIPC
 cd OpenIPC
 ./Project_OpenIPC.sh update
-./Project_OpenIPC.sh hi3516cv200
+./Project_OpenIPC.sh 18ev200_jvt_s130h18v
 
 ---
 
