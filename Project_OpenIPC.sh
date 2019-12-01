@@ -32,9 +32,15 @@ start_build() {
 
 case $build in
 
-  hi3516cv100|hi3518av100|hi3518cv100|hi3518ev100)
+  hi3516cv100|hi3518av100|hi3518ev100)
     SOC=${build}
     prepare_image_config ${SOC} "3.0.8" "config_armv5tej_luci_default"
+    start_build
+    ;;
+
+  hi3518cv100)
+    SOC=${build}
+    prepare_image_config ${SOC} "3.0.8" "config_18cv100_default"
     start_build
     ;;
 
