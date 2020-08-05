@@ -126,7 +126,7 @@
  *----------------------------------------------------------------------*/
 #include "../../product/env_setup.h"
 /* env in flash instead of CFG_ENV_IS_NOWHERE */
-#define CONFIG_ENV_OFFSET	0x30000      /* environment starts here */
+#define CONFIG_ENV_OFFSET	0x40000      /* environment starts here */
 #define CONFIG_ENV_NAND_ADDR	(CONFIG_ENV_OFFSET)
 #define CONFIG_ENV_SPI_ADDR	(CONFIG_ENV_OFFSET)
 #define CONFIG_CMD_SAVEENV
@@ -140,9 +140,9 @@
 /*-----------------------------------------------------------------------
  *  Environment   Configuration
  *-----------------------------------------------------------------------*/
-#define CONFIG_BOOTCOMMAND "sf probe 0; sf read 0x80000000 0x50000 0x200000; bootm 0x80000000"
+#define CONFIG_BOOTCOMMAND "setenv bootargs $(bootargs) ethaddr=$(ethaddr) phyaddru=$(phyaddru) phyaddrd=$(phyaddrd) sensor=$(sensor) linux_cmd=$(linux_cmd); sf probe 0; sf read 0x82000000 0x50000 0x200000; bootm 0x82000000"
 #define CONFIG_BOOTDELAY	1
-#define CONFIG_BOOTARGS "totalmem=64M mem=40M sensor=jxf22 phyaddru=0 phyaddrd=1 console=ttyAMA0,115200 root=/dev/mtdblock4 rootfstype=squashfs,jffs2 mtdparts=hi_sfc:192k(boot),64k(env),64k(tech),2048k(kernel),5120k(rootfs),-(rootfs_data)"
+#define CONFIG_BOOTARGS "totalmem=32M mem=20M console=ttyAMA0,115200 panic=20 root=/dev/mtdblock3 rootfstype=squashfs,jffs2 mtdparts=hi_sfc:256k(boot),64k(env),2048k(kernel),5120k(rootfs),-(rootfs_data)"
 #define CONFIG_NETMASK  255.255.255.0       /* talk on MY local net */
 #define CONFIG_IPADDR   192.168.1.10        /* static IP I currently own */
 #define CONFIG_SERVERIP 192.168.1.254     /* current IP of tftp server ip */
@@ -192,8 +192,8 @@
 	#define HISFV_RMII_MODE                 1
 	#define HIETH_MII_RMII_MODE_U           HISFV_RMII_MODE
 	#define HIETH_MII_RMII_MODE_D           HISFV_RMII_MODE
-	#define HISFV_PHY_U                     0
-	#define HISFV_PHY_D                     1 /* fix me */
+	#define HISFV_PHY_U                     1
+	#define HISFV_PHY_D                     2 /* fix me */
 #endif /* CONFIG_NET_HISFV300 */
 
 /* no nor flash */
@@ -206,7 +206,7 @@
  ------------------------------------------------------------------------*/
 
 #define CONFIG_VERSION_VARIABLE  1 /*used in common/main.c*/
-#define CONFIG_SYS_PROMPT  "Rotek_20191129a # "	/* Monitor Command Prompt */
+#define CONFIG_SYS_PROMPT  "OpenIPC # "	/* Monitor Command Prompt */
 #define CONFIG_SYS_CBSIZE  1024            /* Console I/O Buffer Size  */
 #define CONFIG_SYS_PBSIZE  (CONFIG_SYS_CBSIZE + sizeof(CONFIG_SYS_PROMPT) + 16)
 
@@ -219,7 +219,7 @@
 #define CFG_CMDLINE_HISTORYS    8
 #define CONFIG_CMDLINE_EDITING
 #define CFG_DDR_PHYS_OFFSET MEM_BASE_DDR
-#define CFG_DDR_SIZE		(64 * 1024 * 1024UL) /* 64MB */
+#define CFG_DDR_SIZE		(32 * 1024 * 1024UL) /* 32MB */
 
 #define CONFIG_SYS_MEMTEST_START       \
 	(CFG_DDR_PHYS_OFFSET + sizeof(unsigned long))

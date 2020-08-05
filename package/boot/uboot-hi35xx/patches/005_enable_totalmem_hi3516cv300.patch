@@ -1,0 +1,24 @@
+diff --git a/board/hi3516cv300/board.c b/board/hi3516cv300/board.c
+index 61f3030..37230b4 100644
+--- a/board/hi3516cv300/board.c
++++ b/board/hi3516cv300/board.c
+@@ -199,8 +199,19 @@ int save_bootdata_to_flash(void)
+        return 0;
+ }
+ 
++void detect_memory(void) {
++       ulong tested_ram = get_ram_size((long *)CFG_DDR_PHYS_OFFSET, CFG_DDR_SIZE)
++               / 1024 / 1024;
++       printf("Detected RAM size: %dMb\n", tested_ram);
++
++       char msize[128];
++       sprintf(msize, "%dM", tested_ram);
++       setenv("totalmem", msize);
++}
++
+ int misc_init_r(void)
+ {
++       detect_memory();
+ #ifdef CONFIG_RANDOM_ETHADDR
+        random_init_r();
+ #endif

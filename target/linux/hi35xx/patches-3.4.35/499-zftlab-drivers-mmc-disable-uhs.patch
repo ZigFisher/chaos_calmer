@@ -1,0 +1,19 @@
+--- a/drivers/mmc/host/himciv200/himci.c	2020-04-07 02:27:10.000000000 +0300
++++ b/drivers/mmc/host/himciv200/himci.c	2016-05-10 10:57:56.000000000 +0300
+@@ -1824,12 +1824,12 @@
+ 	mmc->caps |= MMC_CAP_4_BIT_DATA
+ 			| MMC_CAP_SD_HIGHSPEED
+ 			| MMC_CAP_MMC_HIGHSPEED
+-			| MMC_CAP_UHS_SDR12
++		/*	| MMC_CAP_UHS_SDR12	*/
+ 		/*	| MMC_CAP_SDIO_IRQ	*/
+-			| MMC_CAP_UHS_SDR25
+-			| MMC_CAP_UHS_SDR50
++		/*	| MMC_CAP_UHS_SDR25	*/
++		/*	| MMC_CAP_UHS_SDR50	*/
+ 		/*	| MMC_CAP_UHS_DDR50	*/ /* FIXME */
+-			| MMC_CAP_UHS_SDR104
++		/*	| MMC_CAP_UHS_SDR104	*/
+ 			;
+ 
+ 	if (pdev->id == 1) { /* port1-->eMMC */

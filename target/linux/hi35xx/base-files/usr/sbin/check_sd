@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# OpenIPC.org (c) 2020 | SD card checker
+#
+
+if [ -b /dev/mmcblk0 ] ; then
+  echo "SD card found !"
+  if mount | grep /mnt/mmc > /dev/null; then
+    echo "SD card mounted !"
+    echo "SD card test passed !" >/mnt/mmc/test.sd
+    if [ -f /mnt/mmc/test.sd ] ; then
+      cat /mnt/mmc/test.sd
+      ls -la /mnt/mmc/test.sd
+      rm -f /mnt/mmc/test.sd && echo "Test file removed.."
+    else
+      echo "SD card test NOT passed !"
+    fi
+  else
+    echo "SD card NOT mounted !"
+  fi
+else
+  echo "SD card NOT found !"
+fi

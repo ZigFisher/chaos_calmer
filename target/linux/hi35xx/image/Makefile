@@ -77,14 +77,15 @@ define Device/hi35xx-default
     IMAGES := sysupgrade.bin factory.bin
     IMAGE_PREFIX := $(IMG_PREFIX)-$(1)
     KERNEL_PREFIX := $(IMG_PREFIX)-$(1)
+    KERNEL_INITRAMFS_PREFIX := $(IMG_PREFIX)-$(1)-initramfs
     KERNEL_NAME = zImage
     KERNEL_SUFFIX := -uImage
     KERNEL_INSTALL := 1
-    KERNEL_SIZE:=3072k
+    KERNEL_SIZE:=2048k
     ROOT_FS_SIZE:=5120k
     KERNEL_PAD_SIZE:=2097088
     KERNEL := kernel-bin | uImage none
-    KERNEL_INITRAMFS := kernel-bin | uImage none
+    KERNEL_INITRAMFS := kernel-bin
     BLOCKSIZE := 128k
     FILESYSTEMS = $(filter-out jffs2-%,$(TARGET_FILESYSTEMS)) jffs2-$$(BLOCKSIZE)
     IMAGE/sysupgrade.bin := append-kernel $${KERNEL_SIZE} | pad-to 64k | append-rootfs $${ROOT_FS_SIZE} | sysupgrade-header
@@ -154,10 +155,28 @@ endif # ifeq ($(SUBTARGET),18ev100)
 
 
 ifeq ($(SUBTARGET),18ev200)
-    $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV200,512k,DEFAULT)) # @flyrouter
+    $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV200,320k,DEFAULT)) # @flyrouter
     $(eval $(call NewDevice,jvt-s130h18v,JVT-S130H18V,JVT S130H18V,AR0130,HI3518EV200,320k,JVT_S130H18V)) # @flyrouter
+    $(eval $(call NewDevice,jvt-s135h18vf,JVT-S135H18VF,JVT S135H18VF,SC1135,HI3518EV200,320k,JVT_S135H18VF)) # @flyrouter
     $(eval $(call NewDevice,switcam-hs303,SWITCAM-HS303,SWITCAM HS303,JXF22,HI3518EV200,320k,SWITCAM_HS303)) # @flyrouter
+    $(eval $(call NewDevice,xm-blk18ev-0035-0042,XM-BLK18EV-0035-0042,XM BLK18EV-0035-0042,SC2135,HI3518EV200,320k,XM_BLK18EV_0035_0042)) # @flyrouter
 endif # ifeq ($(SUBTARGET),18ev200)
+
+
+
+ifeq ($(SUBTARGET),18ev201)
+    $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3518EV201,320k,DEFAULT)) # @flyrouter
+endif # ifeq ($(SUBTARGET),18ev201)
+
+
+
+ifeq ($(SUBTARGET),20dv100)
+    $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3520DV100,320k,DEFAULT)) # @flyrouter
+endif # ifeq ($(SUBTARGET),20dv100)
+
+ifeq ($(SUBTARGET),20dv200)
+    $(eval $(call NewDevice,default,DEFAULT,DEFAULT,ALL,HI3520DV200,320k,DEFAULT)) # @flyrouter
+endif # ifeq ($(SUBTARGET),20dv200)
 
 
 

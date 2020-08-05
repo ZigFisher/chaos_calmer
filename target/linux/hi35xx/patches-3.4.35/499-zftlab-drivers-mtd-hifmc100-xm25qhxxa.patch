@@ -62,7 +62,7 @@
  
  #ifdef CONFIG_SPI_BLOCK_PROTECT
  #define MID_SPANSION			0x01    /* Spansion Manufacture ID */
-+#define MID_XMC				0x20    /* Xinxin Manufacture ID */
++#define MID_XMC			0x20    /* Xinxin Manufacture ID */
  #define MID_WINBOND			0xef    /* Winbond  Manufacture ID */
  #define MID_MXIC			0xc2    /* MXIC Manufacture ID */
  #define MID_MICRON			0x20    /* Micron Manufacture ID */

@@ -2023,7 +2023,7 @@ CONFIG_PACKAGE_libc=y
 CONFIG_PACKAGE_libgcc=y
 CONFIG_PACKAGE_libpthread=y
 CONFIG_PACKAGE_librt=y
-CONFIG_PACKAGE_libstdcpp=y
+CONFIG_PACKAGE_libstdcpp=m
 # CONFIG_PACKAGE_libthread-db is not set
 CONFIG_PACKAGE_logd=y
 CONFIG_PACKAGE_mtd=y

@@ -45,8 +45,11 @@ UBOOTS+=18ev100
 UBOOTS+=18ev200
 UBOOTS+=18ev201
 
+UBOOTS+=20dv100
+UBOOTS+=20dv200
+
+
 # ?
-# hi3520d_config
 # hi3535_config
 # hi3516a_config
 # hi3536_config
@@ -117,6 +120,18 @@ ifeq ($(BUILD_VARIANT), 18ev201)
 	REG_FILE:=reg_info_hi3518ev201.bin
 	COMPRESS:=1
 endif
+
+ifeq ($(BUILD_VARIANT), 20dv100)
+    UBOOT_CONFIG:=hi3520d_config
+	REG_FILE:=reg_info_hi3520d_ext.bin
+	COMPRESS:=0
+endif
+ifeq ($(BUILD_VARIANT), 20dv200)
+    UBOOT_CONFIG:=hi3520d_config
+	REG_FILE:=reg_info_hi3520d_int.bin
+	COMPRESS:=0
+endif
+
 
 UBOOT_IMAGE:="openwrt-$(if $(CONFIG_VERSION_FILENAMES),$(VERSION_NUMBER)-)$(BOARD)$(if $(SUBTARGET),-$(SUBTARGET))-u-boot.bin"
 

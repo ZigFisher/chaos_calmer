@@ -1,0 +1,35 @@
+--- a/include/polarssl/config.h
++++ b/include/polarssl/config.h
+@@ -602,8 +602,9 @@
+  *      TLS_ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256
+  *      TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+  *      TLS_ECDHE_RSA_WITH_RC4_128_SHA
+-#define POLARSSL_KEY_EXCHANGE_ECDHE_RSA_ENABLED
+  */
++#define POLARSSL_KEY_EXCHANGE_ECDHE_RSA_ENABLED
++
+ 
+ /**
+  * \def POLARSSL_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
+@@ -1594,8 +1595,9 @@
+  *      ECDHE-ECDSA, ECDHE-RSA, DHE-PSK
+  *
+  * Requires: POLARSSL_ECP_C
+-#define POLARSSL_ECDH_C
+  */
++#define POLARSSL_ECDH_C
++
+ 
+ /**
+  * \def POLARSSL_ECDSA_C
+@@ -1622,8 +1624,9 @@
+  *          library/ecdsa.c
+  *
+  * Requires: POLARSSL_BIGNUM_C and at least one POLARSSL_ECP_DP_XXX_ENABLED
+-#define POLARSSL_ECP_C
+  */
++#define POLARSSL_ECP_C
++
+ 
+ /**
+  * \def POLARSSL_ENTROPY_C
