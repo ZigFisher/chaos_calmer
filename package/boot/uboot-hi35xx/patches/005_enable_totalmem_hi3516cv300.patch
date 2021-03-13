@@ -1,5 +1,3 @@
-diff --git a/board/hi3516cv300/board.c b/board/hi3516cv300/board.c
-index 61f3030..37230b4 100644
 --- a/board/hi3516cv300/board.c
 +++ b/board/hi3516cv300/board.c
 @@ -199,8 +199,19 @@ int save_bootdata_to_flash(void)

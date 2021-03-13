@@ -1,0 +1,22 @@
+--- a/board/hi3520d/board.c	2018-04-26 06:57:52.000000000 +0300
++++ b/board/hi3520d/board.c	2020-12-30 09:29:50.384015494 +0300
+@@ -89,8 +89,19 @@
+ 	return 0;
+ }
+ 
++void detect_memory(void) {
++	ulong tested_ram = get_ram_size((long *)CFG_DDR_PHYS_OFFSET, CFG_DDR_SIZE)
++		/ 1024 / 1024;
++	printf("Detected RAM size: %dMb\n", tested_ram);
++
++	char msize[128];
++	sprintf(msize, "%dM", tested_ram);
++	setenv("totalmem", msize);
++}
++
+ int misc_init_r(void)
+ {
++	detect_memory();
+ #ifdef CONFIG_RANDOM_ETHADDR
+ 	random_init_r();
+ #endif

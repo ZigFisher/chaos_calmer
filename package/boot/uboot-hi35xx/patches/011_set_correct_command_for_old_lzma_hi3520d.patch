@@ -1,0 +1,11 @@
+--- a/arch/arm/cpu/hi3520d/compressed/Makefile	2018-04-26 06:57:52.000000000 +0300
++++ b/arch/arm/cpu/hi3520d/compressed/Makefile	2020-12-29 23:23:54.453646203 +0300
+@@ -90,7 +90,7 @@
+ 	$(CC) -D__ASSEMBLY__ $(CFLAGS) -o $@ $< -c
+ 
+ image_data.lzma: $(BINIMAGE)
+-	lzma -fkzc -7 $< > $@
++	lzma e $< -a1 -so > $@
+ 
+ %.o: %.c
+ 	$(CC) $(CFLAGS) -Wall -Wstrict-prototypes \

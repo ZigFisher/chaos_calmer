@@ -1,0 +1,42 @@
+--- a/product/hiupdate/auto_update.c	2018-04-26 06:57:52.000000000 +0300
++++ b/product/hiupdate/auto_update.c	2021-01-13 20:15:03.611561142 +0300
+@@ -62,9 +62,9 @@
+ #endif	/* AU_DEBUG */
+ 
+ /* possible names of files on the medium. */
+-#define AU_FIRMWARE	"u-boot"
+-#define AU_KERNEL	"kernel"
+-#define AU_ROOTFS	"rootfs"
++#define AU_FIRMWARE	"autoupdate-uboot.img"
++#define AU_KERNEL	"autoupdate-kernel.img"
++#define AU_ROOTFS	"autoupdate-rootfs.img"
+ 
+ struct flash_layout {
+ 	long start;
+@@ -88,13 +88,20 @@
+ #endif
+ };
+ 
++/* OpenIPC flash layout
++0x000000000000-0x000000040000 : "boot"
++0x000000040000-0x000000050000 : "env"
++0x000000050000-0x000000250000 : "kernel"
++0x000000250000-0x000000750000 : "rootfs"
++0x000000750000-0x000001000000 : "rootfs_data" */
++
+ /* layout of the FLASH. ST = start address, ND = end address. */
+-#define AU_FL_FIRMWARE_ST	0x0
+-#define AU_FL_FIRMWARE_ND	0x7FFFF
+-#define AU_FL_KERNEL_ST		0x100000
+-#define AU_FL_KERNEL_ND		0x5FFFFF
+-#define AU_FL_ROOTFS_ST		0x600000
+-#define AU_FL_ROOTFS_ND		0xbFFFFF
++#define AU_FL_FIRMWARE_ST	0x00000000
++#define AU_FL_FIRMWARE_ND	0x0007FFFF
++#define AU_FL_KERNEL_ST		0x00050000
++#define AU_FL_KERNEL_ND		0x0024FFFF
++#define AU_FL_ROOTFS_ST		0x00250000
++#define AU_FL_ROOTFS_ND		0x0074FFFF
+ 
+ static int au_stor_curr_dev; /* current device */
+ 

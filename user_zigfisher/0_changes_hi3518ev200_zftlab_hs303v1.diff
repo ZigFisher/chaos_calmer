@@ -1,0 +1,7 @@
+
++CONFIG_PACKAGE_hi35xx-rtl8188eu-firmware=y
++CONFIG_PACKAGE_kmod-hi35xx-rtl8188eu=y
++CONFIG_PACKAGE_libmosquitto=y
++CONFIG_PACKAGE_libmosquitto-nossl=y
++CONFIG_PACKAGE_ethtool=m
++CONFIG_PACKAGE_mosquitto-client-nossl=y

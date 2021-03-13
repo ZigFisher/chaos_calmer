@@ -1,0 +1,21 @@
+
+##################################################################################################
+
+DEVICE_DTS_LIST:= hi3516ev200 hi3516ev300
+
+define Image/Prepare
+	# Build .dtb for all boards we may run on
+	$(foreach dts,$(DEVICE_DTS_LIST),
+	$(call Image/BuildDTB,$(DTS_DIR)/$(dts).dts,$(DTS_DIR)/$(dts).dtb)
+	)
+endef
+
+# Build commands that can be called from Device/* templates
+
+##################################################################################################
+
+ifeq ($(KERNEL_PATCHVER),$(filter $(KERNEL_PATCHVER), 3.18.20 4.9.37))
+    $(call Image/BuildDTB,$(DTS_DIR)/hi35$(SUBTARGET)-demb.dts,$(DTS_DIR)/hi35$(SUBTARGET).dtb)
+endif
+
+##################################################################################################

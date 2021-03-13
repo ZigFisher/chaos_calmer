@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2012 OpenWrt.org
+# Copyright (C) 2020 OpenIPC.org
 #
 
 HI35XX_BOARD_NAME=
@@ -12,7 +12,7 @@ hi35xx_board_detect() {
 
 	#machine=$(cat /proc/device-tree/model)
 	#machine=$(awk 'BEGIN{FS="[ \t]+:[ \t]"} /Hardware/ {print $2}' /proc/cpuinfo)
-	machine=$(hi_chip_info --chip_id)
+	machine=$(ipc_chip_info --chip_id)
 
 	case "$machine" in
 	hi3516cv100)
@@ -20,6 +20,12 @@ hi35xx_board_detect() {
 		;;
 	hi3516cv200)
 		name="hi3516cv200"
+		;;
+	hi3516cv300)
+		name="hi3516cv300"
+		;;
+	hi3516ev100)
+		name="hi3516ev100"
 		;;
 	hi3518ev100)
 		name="hi3518ev100"

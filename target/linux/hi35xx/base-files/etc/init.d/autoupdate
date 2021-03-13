@@ -1,0 +1,117 @@
+#!/bin/sh /etc/rc.common
+
+START=97
+STOP=97
+
+
+autoupdate() {
+
+    # Backup device etc and uci
+    if [ -f /mnt/mmc/backup ] ; then
+        echo "Found command for create backup now"
+        rm -f /mnt/mmc/backup
+        uci show >/mnt/mmc/backup.uci
+        tar czf /mnt/mmc/backup.tgz /etc
+    fi
+
+    # Reset device
+    if [ -f /mnt/mmc/reset ] ; then
+        echo "Found command for reset all settings now"
+        rm -f /mnt/mmc/reset
+        flash_eraseall -j /dev/mtd4
+        reboot
+        exit 0
+    fi
+
+    # Configure device and remove file
+    if [ -f /mnt/mmc/autoupdate-config.run ] ; then
+        echo "Found autoupdate-config.run, exec it now"
+        /mnt/mmc/autoupdate-config.run
+    fi
+
+    # Developer mode
+    if [ -f /mnt/mmc/developer ] ; then
+        echo "Found developer mode, exit now"
+        exit 0
+    fi
+
+    # Remove file autoupdate-config.run
+    if [ -f /mnt/mmc/autoupdate-config.run ] ; then
+        echo "Found autoupdate-config.run, remove it now"
+        rm -f /mnt/mmc/autoupdate-config.run
+    fi
+
+    # Remove file autoupdate-kernel.img
+    if [ -f /mnt/mmc/autoupdate-kernel.img ] ; then
+        echo "Found autoupdate-kernel.img, remove it now"
+        rm -f /mnt/mmc/autoupdate-kernel.img
+    fi
+
+    # Remove file autoupdate-rootfs.img
+    if [ -f /mnt/mmc/autoupdate-rootfs.img ] ; then
+        echo "Found autoupdate-rootfs.img, remove it now"
+        rm -f /mnt/mmc/autoupdate-rootfs.img
+    fi
+
+    # Remove file autoupdate-uboot.img
+    if [ -f /mnt/mmc/autoupdate-uboot.img ] ; then
+        echo "Found autoupdate-uboot.img, remove it now"
+        rm -f /mnt/mmc/autoupdate-uboot.img
+    fi
+
+    # Remove file u-boot
+    if [ -f /mnt/mmc/u-boot ] ; then
+        echo "Found u-boot, remove it now"
+        rm -f /mnt/mmc/u-boot
+    fi
+
+}
+
+
+checkmac() {
+
+    if [ "$(fw_printenv -n ethaddr)" = "00:00:23:34:45:66" ]; then
+
+        echo "Interface eth0 have default MAC.."
+
+        if [ -f /sys/class/net/ra0/address ]; then
+            ethmac="$(awk 'BEGIN { FS=":",OFS=FS } { $6=sprintf("%02x",  (sprintf("%d\n","0x" $6)+1) % 0x100); print $0 }' /sys/class/net/ra0/address)"
+        elif [ -f /sys/class/net/wlan0/address ]; then
+            ethmac="$(awk 'BEGIN { FS=":",OFS=FS } { $6=sprintf("%02x",  (sprintf("%d\n","0x" $6)+1) % 0x100); print $0 }' /sys/class/net/wlan0/address)"
+        else
+            echo "Any wireless device not present.."
+        fi
+
+        if [ -n "$ethmac" ]; then
+            echo "Install new MAC for eth0 interface.."
+            fw_setenv ethaddr ${ethmac}
+            uci set network.lan.macaddr=${ethmac}
+            uci commit
+        fi
+
+    else
+
+        echo "Interface eth0 have MAC $(fw_printenv -n ethaddr)"
+
+    fi
+
+}
+
+
+start() {
+
+    # commands to launch application
+    echo "Start autoupdate system" >/dev/console
+    [[ -z "`mount | grep mmc`" ]] || fsck.fat -a -v /dev/mmcblk0 > /dev/null 2>&1
+    [[ -z "`mount | grep mmc`" ]] || autoupdate
+    checkmac
+
+}
+
+
+stop() {
+
+    # commands to kill application
+    echo stop
+
+}

@@ -26,7 +26,7 @@ PKG_VERSION:=$(firstword $(subst +, ,$(GCC_VERSION)))
 GCC_DIR:=$(PKG_NAME)-$(PKG_VERSION)
 
 ifeq ($(findstring linaro, $(CONFIG_GCC_VERSION)),linaro)
-    LINARO_RELEASE:=
+    LINARO_RELEASE:=15.05
     ifeq ($(CONFIG_GCC_VERSION),"4.6-linaro")
       PKG_REV:=4.6-2013.05
       PKG_VERSION:=4.6.4
@@ -39,6 +39,13 @@ ifeq ($(findstring linaro, $(CONFIG_GCC_VERSION)),linaro)
       PKG_VERSION:=4.8.3
       PKG_VERSION_MAJOR:=4.8
       PKG_MD5SUM:=5ba2f3a449b1658ccc09d27cc7ab3c03
+      PKG_COMP:=xz
+    endif
+    ifeq ($(CONFIG_GCC_VERSION),"4.9-linaro")
+      PKG_REV:=4.9-2015.05
+      PKG_VERSION:=4.9.3
+      PKG_VERSION_MAJOR:=4.9
+      PKG_MD5SUM:=7303374d7877e20aedc9e442cd1d0b2d
       PKG_COMP:=xz
     endif
     ifneq ($(LINARO_RELEASE),)
@@ -58,6 +65,9 @@ else
   endif
   ifeq ($(PKG_VERSION),4.8.0)
     PKG_MD5SUM:=e6040024eb9e761c3bea348d1fa5abb0
+  endif
+  ifeq ($(PKG_VERSION),4.9.3)
+    PKG_MD5SUM:=819bfa9bd20138d3b8a48bef6d01e5df
   endif
 endif
 

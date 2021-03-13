@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo -e "\n\e[1;36m$(cat /etc/banner) \e[0m\n\n" | logger -t info
+

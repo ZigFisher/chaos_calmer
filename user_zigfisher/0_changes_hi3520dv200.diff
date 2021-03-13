@@ -1,0 +1,63 @@
+
++CONFIG_BUSYBOX_CONFIG_LOGIN=y
++# CONFIG_BUSYBOX_CONFIG_LOGIN_SESSION_AS_CHILD is not set
++# CONFIG_BUSYBOX_CONFIG_LOGIN_SCRIPTS is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_NOLOGIN is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_SECURETTY is not set
+
++CONFIG_BUSYBOX_CONFIG_FDISK=y
++CONFIG_BUSYBOX_CONFIG_FEATURE_FDISK_WRITABLE=y
++# CONFIG_BUSYBOX_CONFIG_FEATURE_AIX_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_SGI_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_SUN_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_OSF_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_GPT_LABEL is not set
++CONFIG_BUSYBOX_CONFIG_FEATURE_FDISK_ADVANCED=y
+
++CONFIG_PACKAGE_kmod-i2c-hd44780=y
+
++CONFIG_PACKAGE_kmod-sound-core=y
++# CONFIG_PACKAGE_kmod-ac97 is not set
++# CONFIG_PACKAGE_kmod-sound-i8x0 is not set
++# CONFIG_PACKAGE_kmod-sound-seq is not set
++# CONFIG_PACKAGE_kmod-sound-soc-ac97 is not set
++# CONFIG_PACKAGE_kmod-sound-soc-core is not set
+
++CONFIG_PACKAGE_kmod-usb-audio=y
+.
++CONFIG_PACKAGE_libid3tag=y
++CONFIG_PACKAGE_libmad=y
++CONFIG_PACKAGE_libncurses=y
++CONFIG_PACKAGE_libpopt=y
++CONFIG_PACKAGE_terminfo=y
++CONFIG_PACKAGE_zlib=y
++CONFIG_PACKAGE_luci-app-samba=y
++CONFIG_PACKAGE_luci-i18n-samba-en=y
+
++CONFIG_PACKAGE_rsync=y
++# CONFIG_RSYNC_xattr is not set
++# CONFIG_RSYNC_acl is not set
++# CONFIG_RSYNC_zlib is not set
+
++CONFIG_PACKAGE_samba36-server=y
++CONFIG_PACKAGE_SAMBA_MAX_DEBUG_LEVEL=-1
++CONFIG_PACKAGE_madplay=y
++CONFIG_PACKAGE_deco=y
+
+
++CONFIG_PACKAGE_wireless-tools=y
++CONFIG_PACKAGE_hi35xx-rtl8188eu-firmware=y
++CONFIG_PACKAGE_hi35xx-rtl8188fu-firmware=y
++CONFIG_PACKAGE_mt7601u-firmware=y
++CONFIG_PACKAGE_kmod-hi35xx-mt7601u=y
++# CONFIG_PACKAGE_hi35xx-mt7601u_debug is not set
++CONFIG_PACKAGE_kmod-hi35xx-rtl8188eu=y
++CONFIG_PACKAGE_libjpeg=y
++CONFIG_PACKAGE_motion=y
++CONFIG_PACKAGE_ethtool=y
++CONFIG_PACKAGE_hostapd-common=y
++CONFIG_PACKAGE_hostapd-common-old=y
++CONFIG_PACKAGE_wpa-cli=y
++CONFIG_DRIVER_WEXT_SUPPORT=y
++CONFIG_PACKAGE_wpad-mini=y
++CONFIG_PACKAGE_iwinfo=y

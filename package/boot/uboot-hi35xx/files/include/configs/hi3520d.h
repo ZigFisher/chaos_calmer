@@ -107,6 +107,7 @@
 #define CONFIG_ENV_OFFSET          0x40000      /* environment starts here */
 #define CONFIG_ENV_SPI_ADDR        (CONFIG_ENV_OFFSET)
 #define CONFIG_CMD_SAVEENV
+#define CONFIG_CMD_RUN
 
 #define CONFIG_ENV_SIZE            0x10000    /*include ENV_HEADER_SIZE */
 #define CONFIG_ENV_SECT_SIZE CONFIG_ENV_SIZE
@@ -117,15 +118,19 @@
 /*-----------------------------------------------------------------------
  *  Environment   Configuration
  ------------------------------------------------------------------------*/
-#define CONFIG_BOOTCOMMAND "setenv bootargs $(bootargs) ethaddr=$(ethaddr) phyaddru=$(phyaddru) phyaddrd=$(phyaddrd) linux_cmd=$(linux_cmd); sf probe 0; sf read 0x82000000 0x50000 0x200000; bootm 0x82000000"
+#define CONFIG_BOOTCOMMAND	"setenv setargs setenv bootargs ${bootargs}; run setargs; sf probe 0; sf read 0x82000000 0x50000 0x200000; bootm 0x82000000"
 #define CONFIG_BOOTDELAY	1
-#define CONFIG_BOOTARGS "totalmem=128M mem=96M console=ttyAMA0,115200 panic=20 root=/dev/mtdblock3 rootfstype=squashfs,jffs2 mtdparts=hi_sfc:256k(boot),64k(env),2048k(kernel),5120k(rootfs),-(rootfs_data)"
-#define CONFIG_NETMASK  255.255.254.0       /* talk on MY local net */
-#define CONFIG_IPADDR   192.168.1.10        /* static IP I currently own */
-#define CONFIG_SERVERIP 192.168.1.254     /* current IP of tftp server ip */
-#define CONFIG_ETHADDR  00:00:23:34:45:66
-#define CONFIG_BOOTFILE "uImage"        /* file to load */
-#define CONFIG_BAUDRATE         115200
+#define CONFIG_BOOTARGS		"totalmem=$(totalmem) mem=$(osmem) ethaddr=$(ethaddr) phyaddru=$(phyaddru) phyaddrd=$(phyaddrd) sensor=$(sensor) linux_cmd=$(linux_cmd) totalmem=128M console=ttyAMA0,115200 panic=20 root=/dev/mtdblock3 rootfstype=squashfs mtdparts=hi_sfc:256k(boot),64k(env),2048k(kernel),5120k(rootfs),-(rootfs_data)"
+#define CONFIG_NETMASK		255.255.254.0       /* talk on MY local net */
+#define CONFIG_IPADDR		192.168.1.10        /* static IP I currently own */
+#define CONFIG_SERVERIP		192.168.1.254     /* current IP of tftp server ip */
+#define CONFIG_ETHADDR		00:00:23:34:45:66
+#define CONFIG_BOOTFILE		"uImage"        /* file to load */
+#define CONFIG_BAUDRATE		115200
+#define CONFIG_OSMEM		128M
+#define CONFIG_SENSOR		none
+#define CONFIG_LINUX_CMD	version
+
 /*-----------------------------------------------------------------------
  * for bootm linux
 *  used in file  board/hi3520d/board.c
@@ -295,5 +300,6 @@
 #define ENABLE_HI3515A_BLANK
 #define REG_INFO_BLANK_SIZE 2400
 
-#define CONFIG_OSD_ENABLE
+/*#define CONFIG_OSD_ENABLE*/
+
 #endif	/* __CONFIG_H */

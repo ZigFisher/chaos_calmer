@@ -38,6 +38,34 @@ SOUNDCORE_LOAD += \
 SOUNDCORE_FILES += \
 	$(if $(CONFIG_SND_DMAENGINE_PCM),$(LINUX_DIR)/sound/core/snd-pcm-dmaengine.ko)
 
+
+ifeq ($(KERNEL_PATCHVER),$(filter $(KERNEL_PATCHVER), 3.0.8 3.4.35))
+  SOUNDCORE_LOAD:= \
+	soundcore \
+	snd \
+	snd-hwdep \
+	snd-seq-device \
+	snd-rawmidi \
+	snd-timer \
+	snd-page-alloc \
+	snd-pcm \
+	snd-mixer-oss \
+	snd-pcm-oss
+
+  SOUNDCORE_FILES:= \
+	$(LINUX_DIR)/sound/soundcore.ko \
+	$(LINUX_DIR)/sound/core/snd.ko \
+	$(LINUX_DIR)/sound/core/snd-hwdep.ko \
+	$(LINUX_DIR)/sound/core/seq/snd-seq-device.ko \
+	$(LINUX_DIR)/sound/core/snd-rawmidi.ko \
+	$(LINUX_DIR)/sound/core/snd-timer.ko \
+	$(LINUX_DIR)/sound/core/snd-page-alloc.ko \
+	$(LINUX_DIR)/sound/core/snd-pcm.ko \
+	$(LINUX_DIR)/sound/core/oss/snd-mixer-oss.ko \
+	$(LINUX_DIR)/sound/core/oss/snd-pcm-oss.ko
+endif
+
+
 define KernelPackage/sound-core
   SUBMENU:=$(SOUND_MENU)
   TITLE:=Sound support

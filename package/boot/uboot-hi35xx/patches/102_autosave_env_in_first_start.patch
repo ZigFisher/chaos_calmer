@@ -1,0 +1,14 @@
+--- a/common/env_sf.c	2018-04-26 06:57:52.000000000 +0300
++++ b/common/env_sf.c	2020-08-08 17:35:38.783284114 +0300
+@@ -156,6 +156,11 @@
+ 	puts("*** Warning - bad CRC, using default environment\n\n");
+ 
+ 	set_default_env();
++
++	puts("*** Write default environment to flash\n");
++	env_crc_update();
++	saveenv();
++
+ }
+ 
+ int sf_env_init(void)

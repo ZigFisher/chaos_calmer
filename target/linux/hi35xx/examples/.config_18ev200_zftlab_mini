@@ -98,14 +98,7 @@ CONFIG_ARCH="arm"
 #
 # Target Images
 #
-CONFIG_TARGET_ROOTFS_INITRAMFS=y
-CONFIG_TARGET_INITRAMFS_COMPRESSION_NONE=y
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_GZIP is not set
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_BZIP2 is not set
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_LZMA is not set
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_LZO is not set
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_LZ4 is not set
-# CONFIG_TARGET_INITRAMFS_COMPRESSION_XZ is not set
+# CONFIG_TARGET_ROOTFS_INITRAMFS is not set
 CONFIG_EXTERNAL_CPIO=""
 
 #
@@ -2569,7 +2562,7 @@ CONFIG_PACKAGE_kmod-usb-core=y
 # CONFIG_PACKAGE_kmod-usb-dwc3 is not set
 # CONFIG_PACKAGE_kmod-usb-hid is not set
 CONFIG_PACKAGE_kmod-usb-net=m
-# CONFIG_PACKAGE_kmod-usb-net-asix is not set
+CONFIG_PACKAGE_kmod-usb-net-asix=y
 # CONFIG_PACKAGE_kmod-usb-net-asix-ax88179 is not set
 # CONFIG_PACKAGE_kmod-usb-net-cdc-eem is not set
 CONFIG_PACKAGE_kmod-usb-net-cdc-ether=m
@@ -2744,7 +2737,7 @@ CONFIG_PACKAGE_lua=m
 # CONFIG_PACKAGE_luarocks is not set
 # CONFIG_PACKAGE_luasec is not set
 # CONFIG_PACKAGE_luasoap is not set
-# CONFIG_PACKAGE_luasocket is not set
+CONFIG_PACKAGE_luasocket=y
 # CONFIG_PACKAGE_luasql-mysql is not set
 # CONFIG_PACKAGE_luasql-pgsql is not set
 # CONFIG_PACKAGE_luasql-sqlite3 is not set
@@ -4050,7 +4043,7 @@ CONFIG_PACKAGE_uhttpd-mod-ubus=m
 # CONFIG_PACKAGE_authsae is not set
 # CONFIG_PACKAGE_batctl is not set
 # CONFIG_PACKAGE_bmon is not set
-CONFIG_PACKAGE_bwm-ng=m
+CONFIG_PACKAGE_bwm-ng=y
 
 #
 # Configuration
@@ -4211,7 +4204,7 @@ CONFIG_PACKAGE_wpad-mini=m
 # HiSilicon related
 #
 CONFIG_PACKAGE_hisi-osdrv2-base=y
-CONFIG_PACKAGE_hisi-osdrv2-binary=m
+CONFIG_PACKAGE_hisi-osdrv2-binary=y
 CONFIG_PACKAGE_hisi-osdrv2-kmod=y
 CONFIG_PACKAGE_hisi-osdrv2-lib=y
 CONFIG_PACKAGE_hisi-osdrv2-sensor=m
@@ -4224,13 +4217,14 @@ CONFIG_PACKAGE_hisi-osdrv2-sensor=m
 #
 # Multimedia
 #
-CONFIG_PACKAGE_minihttp=y
+CONFIG_PACKAGE_minihttp=m
 
 #
 # Other
 #
 CONFIG_PACKAGE_demo=m
 CONFIG_PACKAGE_kdb=m
+CONFIG_PACKAGE_luci-app-ipcam=y
 
 #
 # Sensors
@@ -4243,13 +4237,14 @@ CONFIG_PACKAGE_hi35xx_sensor_imx222=m
 CONFIG_PACKAGE_hi35xx_sensor_jxf23=m
 CONFIG_PACKAGE_hi35xx_sensor_ov9732=m
 CONFIG_PACKAGE_hi35xx_sensor_sc1135=m
+CONFIG_PACKAGE_hi35xx_sensor_sc2035=y
 CONFIG_PACKAGE_hi35xx_sensor_sc2135=m
 
 #
 # Tools
 #
 CONFIG_PACKAGE_flash_tool=m
-CONFIG_PACKAGE_hi_chip_info=y
+CONFIG_PACKAGE_hi_chip_info=m
 CONFIG_PACKAGE_hisi-i2c=m
 
 #
@@ -4543,6 +4538,7 @@ CONFIG_PACKAGE_mii-diag=m
 # CONFIG_PACKAGE_pciutils is not set
 # CONFIG_PACKAGE_pcscd is not set
 # CONFIG_PACKAGE_procps is not set
+CONFIG_PACKAGE_prometheus-node-exporter-lua=y
 # CONFIG_PACKAGE_pv is not set
 # CONFIG_PACKAGE_px5g is not set
 # CONFIG_PACKAGE_px5g-standalone is not set

@@ -1,0 +1,17 @@
+
+
+                        ethernet     boot_args     software
+                        --------     ---------     ------------------------------
+Hi3516cv100        |    testing      done          luci-app-ipcam | gdbserver(+libthread-db), strace
+Hi3516cv200        |    ok           done          luci-app-ipcam |
+Hi3516cv300        |    ok           done          luci-app-ipcam | gdbserver(+libthread-db), strace | kmod-fs-f2fs, f2fs-tools(+libf2fs)
+Hi3516ev100        |    ok           done          luci-app-ipcam | gdbserver(+libthread-db), strace
+Hi3518Av100        |                 done          luci-app-ipcam |
+Hi3518Cv100        |                 done          luci-app-ipcam |
+Hi3518Ev100        |    testing      done          luci-app-ipcam |
+Hi3518Ev200        |    ok           done          luci-app-ipcam |
+Hi3518Ev201        |                 done          luci-app-ipcam |
+Hi3520Dv100        |                 done          luci-app-ipcam |
+                   |
+Hi3518Cv100_ussh   |                 done          luci-app-ipcam |
+Hi3518Ev200_rotek  |                 done          luci-app-ipcam |

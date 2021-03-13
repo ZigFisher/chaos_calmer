@@ -1,0 +1,30 @@
+
++CONFIG_BUSYBOX_CONFIG_FDISK=y
++CONFIG_BUSYBOX_CONFIG_FEATURE_FDISK_WRITABLE=y
++# CONFIG_BUSYBOX_CONFIG_FEATURE_AIX_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_SGI_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_SUN_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_OSF_LABEL is not set
++# CONFIG_BUSYBOX_CONFIG_FEATURE_GPT_LABEL is not set
++CONFIG_BUSYBOX_CONFIG_FEATURE_FDISK_ADVANCED=y
+
++# CONFIG_PACKAGE_ca-certificates is not set
+
++CONFIG_PACKAGE_hi35xx-rtl8188eu-firmware=m
++CONFIG_PACKAGE_hi35xx-rtl8188fu-firmware=m
++CONFIG_PACKAGE_mt7601u-firmware=m
+
++CONFIG_PACKAGE_kmod-sound-core=y
++# CONFIG_PACKAGE_kmod-ac97 is not set
++# CONFIG_PACKAGE_kmod-sound-i8x0 is not set
++# CONFIG_PACKAGE_kmod-sound-seq is not set
++# CONFIG_PACKAGE_kmod-sound-soc-ac97 is not set
++# CONFIG_PACKAGE_kmod-sound-soc-core is not set
++CONFIG_PACKAGE_kmod-usb-audio=y
+
++CONFIG_PACKAGE_kmod-hi35xx-mt7601u=y
++CONFIG_PACKAGE_kmod-hi35xx-rtl8188fu=m
++CONFIG_PACKAGE_libid3tag=y
++CONFIG_PACKAGE_libmad=y
++CONFIG_PACKAGE_zlib=y
++CONFIG_PACKAGE_madplay=y

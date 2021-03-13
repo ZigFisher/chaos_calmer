@@ -4,6 +4,7 @@ way="/sys/class/gpio"
 ircut1=$(uci -q get ipcam.gpio.ircut1)
 ircut2=$(uci -q get ipcam.gpio.ircut2)
 light=$(uci -q get ipcam.gpio.light)
+irled=$(uci -q get ipcam.gpio.irled)
 end="0"
 
 
@@ -12,19 +13,26 @@ prepare() {
   [ ! -d ${way}/gpio${ircut1} ] && echo ${ircut1} >${way}/export
   [ ! -d ${way}/gpio${ircut2} ] && echo ${ircut2} >${way}/export
   [ ! -d ${way}/gpio${light} ] && echo ${light} >${way}/export
+  [ ! -d ${way}/gpio${irled} ] && echo ${irled} >${way}/export
   #
   echo "out" >${way}/gpio${ircut1}/direction
   echo "out" >${way}/gpio${ircut2}/direction
   echo "in" >${way}/gpio${light}/direction
+  echo "out" >${way}/gpio${irled}/direction
 }
 
 enable() {
   logger -t ircut "IRCUT enable"
-  echo 1 >${way}/gpio${ircut1}/value
-  echo 0 >${way}/gpio${ircut2}/value
-  usleep 150
-  echo ${end} >${way}/gpio${ircut1}/value
-  echo ${end} >${way}/gpio${ircut2}/value
+  if [ "$ircut1" = "$ircut2" ]; then
+    echo 1 >${way}/gpio${ircut1}/value
+  else
+    echo 1 >${way}/gpio${ircut1}/value
+    echo 0 >${way}/gpio${ircut2}/value
+    usleep 150
+    echo ${end} >${way}/gpio${ircut1}/value
+    echo ${end} >${way}/gpio${ircut2}/value
+  fi
+  echo 1 >${way}/gpio${irled}/value
 }
 
 pause() {
@@ -34,11 +42,16 @@ pause() {
 
 disable() {
   logger -t ircut "IRCUT disable"
-  echo 0 >${way}/gpio${ircut1}/value
-  echo 1 >${way}/gpio${ircut2}/value
-  usleep 150
-  echo ${end} >${way}/gpio${ircut1}/value
-  echo ${end} >${way}/gpio${ircut2}/value
+  if [ "$ircut1" = "$ircut2" ]; then
+    echo 0 >${way}/gpio${ircut1}/value
+  else
+    echo 0 >${way}/gpio${ircut1}/value
+    echo 1 >${way}/gpio${ircut2}/value
+    usleep 150
+    echo ${end} >${way}/gpio${ircut1}/value
+    echo ${end} >${way}/gpio${ircut2}/value
+  fi
+  echo 0 >${way}/gpio${irled}/value
 }
 
 test() {
@@ -47,6 +60,14 @@ test() {
   enable
   pause
   disable
+}
+
+setup() {
+  if [ "$(cat ${way}/gpio${light}/value)" = "0" ]; then
+    enable
+  elif [ "$(cat ${way}/gpio${light}/value)" = "1" ]; then
+    disable
+  fi
 }
 
 

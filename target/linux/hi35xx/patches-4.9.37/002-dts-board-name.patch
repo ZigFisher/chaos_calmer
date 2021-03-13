@@ -1,0 +1,48 @@
+diff -uarN a/arch/arm/boot/dts/hi3516dv200-demb.dts b/arch/arm/boot/dts/hi3516dv200-demb.dts
+--- a/arch/arm/boot/dts/hi3516dv200-demb.dts	2020-05-23 15:57:47.352095835 +0300
++++ b/arch/arm/boot/dts/hi3516dv200-demb.dts	2020-05-23 17:55:16.991834745 +0300
+@@ -21,7 +21,7 @@
+ #include "hi3516dv200.dtsi"
+ 
+ / {
+-	model = "Hisilicon HI3516DV200 DEMO Board";
++	model = "HiSilicon Hi3516Dv200 device | OpenIPC.org 2020";
+ 	compatible = "hisilicon,hi3516dv200";
+ 
+ 	memory {
+diff -uarN a/arch/arm/boot/dts/hi3516ev200-demb.dts b/arch/arm/boot/dts/hi3516ev200-demb.dts
+--- a/arch/arm/boot/dts/hi3516ev200-demb.dts	2020-05-23 15:57:47.352095835 +0300
++++ b/arch/arm/boot/dts/hi3516ev200-demb.dts	2020-05-23 17:55:10.455942314 +0300
+@@ -21,7 +21,7 @@
+ #include "hi3516ev200.dtsi"
+ 
+ / {
+-	model = "Hisilicon HI3516EV200 DEMO Board";
++	model = "HiSilicon Hi3516Ev200 device | OpenIPC.org 2020";
+ 	compatible = "hisilicon,hi3516ev200";
+ 
+ 	memory {
+diff -uarN a/arch/arm/boot/dts/hi3516ev300-demb.dts b/arch/arm/boot/dts/hi3516ev300-demb.dts
+--- a/arch/arm/boot/dts/hi3516ev300-demb.dts	2020-05-23 15:57:47.352095835 +0300
++++ b/arch/arm/boot/dts/hi3516ev300-demb.dts	2020-05-23 17:55:38.095485728 +0300
+@@ -21,7 +21,7 @@
+ #include "hi3516ev300.dtsi"
+ 
+ / {
+-	model = "Hisilicon HI3516EV300 DEMO Board";
++	model = "HiSilicon Hi3516Ev300 device | OpenIPC.org 2020";
+ 	compatible = "hisilicon,hi3516ev300";
+ 
+ 	memory {
+diff -uarN a/arch/arm/boot/dts/hi3518ev300-demb.dts b/arch/arm/boot/dts/hi3518ev300-demb.dts
+--- a/arch/arm/boot/dts/hi3518ev300-demb.dts	2020-05-23 15:57:47.352095835 +0300
++++ b/arch/arm/boot/dts/hi3518ev300-demb.dts	2020-05-23 17:55:54.931205492 +0300
+@@ -21,7 +21,7 @@
+ #include "hi3518ev300.dtsi"
+ 
+ / {
+-	model = "Hisilicon HI3518EV300 DEMO Board";
++	model = "HiSilicon Hi3518Ev300 device | OpenIPC.org 2020";
+ 	compatible = "hisilicon,hi3518ev300";
+ 
+ 	memory {

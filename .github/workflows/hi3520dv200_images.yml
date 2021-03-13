@@ -1,0 +1,127 @@
+name: Hi3520Dv200 family images
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "v*"
+
+jobs:
+  image_build:
+    name: images build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install build dependencies
+        id: install
+        run: |
+          DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get -y install \
+          build-essential gawk libncurses-dev intltool python \
+          git subversion time unzip zlib1g-dev libssl-dev wget curl cpio bc \
+          gettext gettext-base liblocale-gettext-perl
+
+      - name: Free disk space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+
+      - name: Hi3520Dv200 family images build
+        id: build
+        run: |
+          HEAD_TAG=$(git tag --points-at HEAD)
+          GIT_HASH=$(git rev-parse --short $GITHUB_SHA)
+          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 3)
+          if [ -z "$HEAD_TAG" ]; then
+            TAG_NAME="latest"
+            RELEASE_NAME="Development Build"
+            PRERELEASE=true
+          else
+            TAG_NAME=${{ github.ref }}
+            RELEASE_NAME="Release ${{ github.ref }}"
+            PRERELEASE=false
+          fi
+          ARCHIVE="output/openwrt-hi35xx-*"
+          echo "ARCHIVE=$ARCHIVE" >> $GITHUB_ENV
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
+          echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
+
+          ./Project_OpenIPC.sh update
+          ln -sf target/linux/hi35xx/config-3.0.8_hi3520dv200_20210110a target/linux/hi35xx/config-3.0.8  # temporary crutch
+          ./Project_OpenIPC.sh 20dv200_DEFAULT
+          cp bin/hi35xx/openwrt-hi35xx-20dv200-default-root.squashfs bin/hi35xx/openwrt-hi35xx-20dv100-default-root.squashfs
+          cp bin/hi35xx/openwrt-hi35xx-20dv200-default-uImage bin/hi35xx/openwrt-hi35xx-20dv100-default-uImage
+          sed -i 's/CONFIG_TARGET_hi35xx_20dv200=y/# CONFIG_TARGET_hi35xx_20dv200 is not set/g' .config
+          sed -i 's/# CONFIG_TARGET_hi35xx_20dv100 is not set/CONFIG_TARGET_hi35xx_20dv100=y/' .config
+          sed -i 's/CONFIG_PACKAGE_uboot-hi35xx-20dv200=y/CONFIG_PACKAGE_uboot-hi35xx-20dv100=y/' .config
+          make -j$(nproc) package/boot/uboot-hi35xx/{clean,compile,install}
+
+          mkdir output
+          mv bin/hi35xx/openwrt-hi35xx-20dv100-default-root.squashfs output
+          mv bin/hi35xx/openwrt-hi35xx-20dv100-default-uImage output
+          # mv bin/hi35xx/openwrt-hi35xx-20dv100-u-boot.bin output
+          mv bin/hi35xx/openwrt-hi35xx-20dv200-default-root.squashfs output
+          mv bin/hi35xx/openwrt-hi35xx-20dv200-default-uImage output
+          # mv bin/hi35xx/openwrt-hi35xx-20dv200-u-boot.bin output
+
+      - name: Send warning message to telegram channel
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN_BOT_OPENIPC }}
+          TG_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL_OPENIPC_DEV }}
+        if: steps.install.outcome != 'success' || steps.build.outcome != 'success'
+        run: |
+          TG_OPTIONS="-s --connect-timeout 5 --max-time 15"
+          TG_NOTIFY="Warning, Hi3520Dv200 family images build error..."
+          TG_HEADER=$(echo -e "\r\n$TG_NOTIFY \r\n\r\nCommit: $GIT_HASH \r\nBranch: $BRANCH_NAME \r\nTag: $TAG_NAME \r\n\r\n\xE2\x9A\xA0 GitHub Actions")
+          curl $TG_OPTIONS -H "Content-Type: multipart/form-data" -X POST https://api.telegram.org/bot$TG_TOKEN/sendMessage \
+            -F chat_id=$TG_CHANNEL -F text="$TG_HEADER"
+
+      - name: Post free disk space
+        run: |
+          df -h
+
+      - name: Create release
+        uses: actions/create-release@v1
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
+          draft: false
+          prerelease: ${{ env.PRERELEASE }}
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ${{ env.ARCHIVE }}
+          asset_name: ${{ env.ARCHIVE }}
+          tag: ${{ env.TAG_NAME }}
+          overwrite: true
+
+      - name: Send binary file to telegram channel
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN_BOT_OPENIPC }}
+          TG_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL_OPENIPC_DEV }}
+        run: |
+          TG_OPTIONS="-s --connect-timeout 5 --max-time 15"
+          TG_HEADER=$(echo -e "\r\nCommit: $GIT_HASH  \r\nBranch: $BRANCH_NAME \r\nTag: $TAG_NAME \r\n\r\n\xE2\x9C\x85 GitHub Actions")
+          mkdir -p tmp
+          tar cvfz tmp/openipc.hi3520dv200-family.tgz output
+          curl $TG_OPTIONS -H "Content-Type: multipart/form-data" -X POST https://api.telegram.org/bot$TG_TOKEN/sendDocument \
+            -F chat_id=$TG_CHANNEL -F document="@tmp/openipc.hi3520dv200-family.tgz" -F caption="$TG_HEADER"
+
+
+
+

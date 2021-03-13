@@ -1,0 +1,18 @@
+--- a/common/env_common.c	2018-04-26 06:57:52.000000000 +0300
++++ b/common/env_common.c	2020-08-07 22:32:38.610810514 +0300
+@@ -145,6 +145,15 @@
+ #if defined(CONFIG_PCI_BOOTDELAY) && (CONFIG_PCI_BOOTDELAY > 0)
+ 	"pcidelay="	MK_STR(CONFIG_PCI_BOOTDELAY)	"\0"
+ #endif
++#ifdef	CONFIG_OSMEM
++	"osmem="	MK_STR(CONFIG_OSMEM)		"\0"
++#endif
++#ifdef	CONFIG_LINUX_CMD
++	"linux_cmd="	MK_STR(CONFIG_LINUX_CMD)		"\0"
++#endif
++#ifdef	CONFIG_SENSOR
++	"sensor="	MK_STR(CONFIG_SENSOR)		"\0"
++#endif
+ #ifdef  CONFIG_EXTRA_ENV_SETTINGS
+ 	CONFIG_EXTRA_ENV_SETTINGS
+ #endif

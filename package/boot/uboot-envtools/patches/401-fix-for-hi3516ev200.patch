@@ -1,0 +1,10 @@
+--- a/tools/env/fw_env.c	2020-11-08 15:32:32.709391028 +0300
++++ b/tools/env/fw_env.c	2020-11-08 15:46:50.891697891 +0300
+@@ -21,6 +21,7 @@
+ #include <sys/ioctl.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
++#include <stdint.h>
+ 
+ #ifdef MTD_OLD
+ # include <stdint.h>

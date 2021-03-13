@@ -44,16 +44,13 @@ UBOOTS+=18cv100
 UBOOTS+=18ev100
 UBOOTS+=18ev200
 UBOOTS+=18ev201
-
 UBOOTS+=20dv100
 UBOOTS+=20dv200
-
-
-# ?
+#
 # hi3535_config
 # hi3516a_config
 # hi3536_config
-# ?
+#
 
 define Package/uboot/template
 define Package/uboot-hi35xx-$(1)
@@ -123,12 +120,12 @@ endif
 
 ifeq ($(BUILD_VARIANT), 20dv100)
     UBOOT_CONFIG:=hi3520d_config
-	REG_FILE:=reg_info_hi3520d_ext.bin
+	REG_FILE:=reg_info_hi3520d_duo.bin
 	COMPRESS:=0
 endif
 ifeq ($(BUILD_VARIANT), 20dv200)
     UBOOT_CONFIG:=hi3520d_config
-	REG_FILE:=reg_info_hi3520d_int.bin
+	REG_FILE:=reg_info_hi3520d_duo.bin
 	COMPRESS:=0
 endif
 
@@ -156,7 +153,7 @@ endef
 define Package/uboot/install/template
 ifeq ($(COMPRESS), 1)
 define Package/uboot-hi35xx-$(1)/install
-    $(CP) $(PKG_BUILD_DIR)/u-boot.bin $(PKG_BUILD_DIR)/full-boot.bin
+	$(CP) $(PKG_BUILD_DIR)/u-boot.bin $(PKG_BUILD_DIR)/full-boot.bin
 	$(CP) $(PKG_BUILD_DIR)/uboot_tools/$(REG_FILE) $(PKG_BUILD_DIR)/.reg
 	$(MAKE) -C $(PKG_BUILD_DIR) CROSS_COMPILE=$(TARGET_CROSS) mini-boot.bin
 	$(CP) $(PKG_BUILD_DIR)/mini-boot.bin $(BIN_DIR)/$(UBOOT_IMAGE)
