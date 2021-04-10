@@ -4207,6 +4207,7 @@ CONFIG_PACKAGE_hisi-osdrv2-base=y
 CONFIG_PACKAGE_hisi-osdrv2-binary=y
 CONFIG_PACKAGE_hisi-osdrv2-kmod=y
 CONFIG_PACKAGE_hisi-osdrv2-lib=y
+CONFIG_PACKAGE_hisi-osdrv2-majestic=y
 CONFIG_PACKAGE_hisi-osdrv2-sensor=m
 
 #
@@ -4217,7 +4218,7 @@ CONFIG_PACKAGE_hisi-osdrv2-sensor=m
 #
 # Multimedia
 #
-CONFIG_PACKAGE_minihttp=m
+# CONFIG_PACKAGE_minihttp is not set
 
 #
 # Other
@@ -4243,7 +4244,6 @@ CONFIG_PACKAGE_hi35xx_sensor_sc2235=y
 # Tools
 #
 CONFIG_PACKAGE_flash_tool=y
-CONFIG_PACKAGE_hi_chip_info=m
 CONFIG_PACKAGE_hisi-i2c=y
 
 #
@@ -4251,6 +4251,15 @@ CONFIG_PACKAGE_hisi-i2c=y
 #
 CONFIG_PACKAGE_hisi-rtsp=m
 CONFIG_PACKAGE_hisi-sample=m
+
+#
+# Utils
+#
+CONFIG_PACKAGE_hisi_gpio_scanner=y
+CONFIG_PACKAGE_hisi_gpio_watcher=y
+CONFIG_PACKAGE_ipctool=y
+CONFIG_PACKAGE_memdump=m
+CONFIG_PACKAGE_xmdp=y
 
 #
 # VPN

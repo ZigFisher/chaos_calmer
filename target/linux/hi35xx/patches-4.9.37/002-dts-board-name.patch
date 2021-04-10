@@ -6,7 +6,7 @@ diff -uarN a/arch/arm/boot/dts/hi3516dv200-demb.dts b/arch/arm/boot/dts/hi3516dv
  
  / {
 -	model = "Hisilicon HI3516DV200 DEMO Board";
-+	model = "HiSilicon Hi3516Dv200 device | OpenIPC.org 2020";
++	model = "HiSilicon Hi3516Dv200 device | OpenIPC.org 2021";
  	compatible = "hisilicon,hi3516dv200";
  
  	memory {
@@ -18,7 +18,7 @@ diff -uarN a/arch/arm/boot/dts/hi3516ev200-demb.dts b/arch/arm/boot/dts/hi3516ev
  
  / {
 -	model = "Hisilicon HI3516EV200 DEMO Board";
-+	model = "HiSilicon Hi3516Ev200 device | OpenIPC.org 2020";
++	model = "HiSilicon Hi3516Ev200 device | OpenIPC.org 2021";
  	compatible = "hisilicon,hi3516ev200";
  
  	memory {
@@ -30,7 +30,7 @@ diff -uarN a/arch/arm/boot/dts/hi3516ev300-demb.dts b/arch/arm/boot/dts/hi3516ev
  
  / {
 -	model = "Hisilicon HI3516EV300 DEMO Board";
-+	model = "HiSilicon Hi3516Ev300 device | OpenIPC.org 2020";
++	model = "HiSilicon Hi3516Ev300 device | OpenIPC.org 2021";
  	compatible = "hisilicon,hi3516ev300";
  
  	memory {
@@ -42,7 +42,7 @@ diff -uarN a/arch/arm/boot/dts/hi3518ev300-demb.dts b/arch/arm/boot/dts/hi3518ev
  
  / {
 -	model = "Hisilicon HI3518EV300 DEMO Board";
-+	model = "HiSilicon Hi3518Ev300 device | OpenIPC.org 2020";
++	model = "HiSilicon Hi3518Ev300 device | OpenIPC.org 2021";
  	compatible = "hisilicon,hi3518ev300";
  
  	memory {

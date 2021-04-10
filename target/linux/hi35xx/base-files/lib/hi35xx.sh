@@ -12,7 +12,7 @@ hi35xx_board_detect() {
 
 	#machine=$(cat /proc/device-tree/model)
 	#machine=$(awk 'BEGIN{FS="[ \t]+:[ \t]"} /Hardware/ {print $2}' /proc/cpuinfo)
-	machine=$(ipc_chip_info --chip_id)
+	machine=$(ipctool --chip_id)
 
 	case "$machine" in
 	hi3516cv100)

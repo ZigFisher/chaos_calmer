@@ -4228,6 +4228,7 @@ CONFIG_PACKAGE_wpad-mini=m
 # CONFIG_PACKAGE_hisi-osdrv3-sensor is not set
 # CONFIG_PACKAGE_hisi-osdrv4-kmod is not set
 # CONFIG_PACKAGE_hisi-osdrv4-lib is not set
+# CONFIG_PACKAGE_hisi-osdrv4-majestic is not set
 
 #
 # Library
@@ -4253,12 +4254,19 @@ CONFIG_PACKAGE_luci-app-ipcam=y
 # Tools
 #
 CONFIG_PACKAGE_flash_tool=y
-CONFIG_PACKAGE_hi_chip_info=m
-# CONFIG_PACKAGE_ipc_chip_info is not set
 
 #
 # Unused
 #
+
+#
+# Utils
+#
+CONFIG_PACKAGE_hisi_gpio_scanner=y
+CONFIG_PACKAGE_hisi_gpio_watcher=y
+CONFIG_PACKAGE_ipctool=y
+CONFIG_PACKAGE_memdump=m
+CONFIG_PACKAGE_xmdp=y
 
 #
 # VPN

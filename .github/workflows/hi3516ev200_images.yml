@@ -1,15 +1,15 @@
-name: Hi3516Cv100 family
+name: Hi3516Ev200 family
 
 on:
   push:
     branches:
-      - master
+      - future
     tags:
-      - "v*"
+      - "vr*"
 
 jobs:
-  build_16cv100:
-    name: Hi3516Cv100 images
+  build_16ev200:
+    name: Hi3516Ev200 images
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -24,15 +24,7 @@ jobs:
           git subversion time unzip zlib1g-dev libssl-dev wget curl cpio bc \
           gettext gettext-base liblocale-gettext-perl
 
-      - name: Free disk space
-        run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo apt clean
-          docker rmi $(docker image ls -aq)
-          df -h
-
-      - name: Hi3516Cv100 family images build
+      - name: Hi3516Ev200 family images build
         id: build
         run: |
           HEAD_TAG=$(git tag --points-at HEAD)
@@ -56,39 +48,21 @@ jobs:
           echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
 
           ./Project_OpenIPC.sh update
-          ./Project_OpenIPC.sh 16cv100_DEFAULT
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-root.squashfs bin/hi35xx/openwrt-hi35xx-18av100-default-root.squashfs
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-root.squashfs bin/hi35xx/openwrt-hi35xx-18cv100-default-root.squashfs
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-root.squashfs bin/hi35xx/openwrt-hi35xx-18ev100-default-root.squashfs
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-uImage bin/hi35xx/openwrt-hi35xx-18av100-default-uImage
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-uImage bin/hi35xx/openwrt-hi35xx-18cv100-default-uImage
-          cp bin/hi35xx/openwrt-hi35xx-16cv100-default-uImage bin/hi35xx/openwrt-hi35xx-18ev100-default-uImage
-          sed -i 's/CONFIG_TARGET_hi35xx_16cv100=y/# CONFIG_TARGET_hi35xx_16cv100 is not set/g' .config
-          sed -i 's/# CONFIG_TARGET_hi35xx_18av100 is not set/CONFIG_TARGET_hi35xx_18av100=y/' .config
-          sed -i 's/CONFIG_PACKAGE_uboot-hi35xx-16cv100=y/CONFIG_PACKAGE_uboot-hi35xx-18av100=y/' .config
-          make -j$(nproc) package/boot/uboot-hi35xx/{clean,compile,install}
-          sed -i 's/CONFIG_TARGET_hi35xx_18av100=y/# CONFIG_TARGET_hi35xx_18av100 is not set/g' .config
-          sed -i 's/# CONFIG_TARGET_hi35xx_18cv100 is not set/CONFIG_TARGET_hi35xx_18cv100=y/' .config
-          sed -i 's/CONFIG_PACKAGE_uboot-hi35xx-18av100=y/CONFIG_PACKAGE_uboot-hi35xx-18cv100=y/' .config
-          make -j$(nproc) package/boot/uboot-hi35xx/{clean,compile,install}
-          sed -i 's/CONFIG_TARGET_hi35xx_18cv100=y/# CONFIG_TARGET_hi35xx_18cv100 is not set/g' .config
-          sed -i 's/# CONFIG_TARGET_hi35xx_18ev100 is not set/CONFIG_TARGET_hi35xx_18ev100=y/' .config
-          sed -i 's/CONFIG_PACKAGE_uboot-hi35xx-18cv100=y/CONFIG_PACKAGE_uboot-hi35xx-18ev100=y/' .config
-          make -j$(nproc) package/boot/uboot-hi35xx/{clean,compile,install}
+          ./Project_OpenIPC.sh 16ev200_DEFAULT
+          cp bin/hi35xx/openwrt-hi35xx-16ev200-default-root.squashfs bin/hi35xx/openwrt-hi35xx-16ev300-default-root.squashfs
+          cp bin/hi35xx/openwrt-hi35xx-16ev200-default-root.squashfs bin/hi35xx/openwrt-hi35xx-18ev300-default-root.squashfs
+          cp bin/hi35xx/openwrt-hi35xx-16ev200-default-uImage bin/hi35xx/openwrt-hi35xx-16ev300-default-uImage
+          cp bin/hi35xx/openwrt-hi35xx-16ev200-default-uImage bin/hi35xx/openwrt-hi35xx-18ev300-default-uImage
+          # No build U-boot parts
 
           mkdir output
-          mv bin/hi35xx/openwrt-hi35xx-16cv100-default-root.squashfs output
-          mv bin/hi35xx/openwrt-hi35xx-16cv100-default-uImage output
-          mv bin/hi35xx/openwrt-hi35xx-16cv100-u-boot.bin output
-          mv bin/hi35xx/openwrt-hi35xx-18av100-default-root.squashfs output
-          mv bin/hi35xx/openwrt-hi35xx-18av100-default-uImage output
-          mv bin/hi35xx/openwrt-hi35xx-18av100-u-boot.bin output
-          mv bin/hi35xx/openwrt-hi35xx-18cv100-default-root.squashfs output
-          mv bin/hi35xx/openwrt-hi35xx-18cv100-default-uImage output
-          mv bin/hi35xx/openwrt-hi35xx-18cv100-u-boot.bin output
-          mv bin/hi35xx/openwrt-hi35xx-18ev100-default-root.squashfs output
-          mv bin/hi35xx/openwrt-hi35xx-18ev100-default-uImage output
-          mv bin/hi35xx/openwrt-hi35xx-18ev100-u-boot.bin output
+          mv bin/hi35xx/openwrt-hi35xx-16ev200-default-root.squashfs output
+          mv bin/hi35xx/openwrt-hi35xx-16ev200-default-uImage output
+          mv bin/hi35xx/openwrt-hi35xx-16ev300-default-root.squashfs output
+          mv bin/hi35xx/openwrt-hi35xx-16ev300-default-uImage output
+          mv bin/hi35xx/openwrt-hi35xx-18ev300-default-root.squashfs output
+          mv bin/hi35xx/openwrt-hi35xx-18ev300-default-uImage output
+          # No copy U-boot parts
 
         continue-on-error: true
 
@@ -99,7 +73,7 @@ jobs:
         if: steps.install.outcome != 'success' || steps.build.outcome != 'success'
         run: |
           TG_OPTIONS="-s --connect-timeout 5 --max-time 15"
-          TG_NOTIFY="Warning, Hi3516Cv100 family images build error..."
+          TG_NOTIFY="Warning, Hi3516Ev200 family images build error..."
           TG_HEADER=$(echo -e "\r\n$TG_NOTIFY \r\n\r\nCommit: $GIT_HASH \r\nBranch: $BRANCH_NAME \r\nTag: $TAG_NAME \r\n\r\n\xE2\x9A\xA0 GitHub Actions")
           curl $TG_OPTIONS -H "Content-Type: multipart/form-data" -X POST https://api.telegram.org/bot$TG_TOKEN/sendMessage \
             -F chat_id=$TG_CHANNEL -F text="$TG_HEADER"
@@ -137,9 +111,9 @@ jobs:
           TG_OPTIONS="-s --connect-timeout 5 --max-time 15"
           TG_HEADER=$(echo -e "\r\nCommit: $GIT_HASH  \r\nBranch: $BRANCH_NAME \r\nTag: $TAG_NAME \r\n\r\n\xE2\x9C\x85 GitHub Actions")
           mkdir -p tmp
-          tar cvfz tmp/openipc.hi3516cv100-family.tgz output
+          tar cvfz tmp/openipc.hi3516ev200-family.tgz output
           curl $TG_OPTIONS -H "Content-Type: multipart/form-data" -X POST https://api.telegram.org/bot$TG_TOKEN/sendDocument \
-            -F chat_id=$TG_CHANNEL -F document="@tmp/openipc.hi3516cv100-family.tgz" -F caption="$TG_HEADER"
+            -F chat_id=$TG_CHANNEL -F document="@tmp/openipc.hi3516ev200-family.tgz" -F caption="$TG_HEADER"
 
 
 

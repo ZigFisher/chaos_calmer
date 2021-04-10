@@ -1,4 +1,4 @@
-name: Hi3516Cv300 family images
+name: Hi3516Cv300 family
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
       - "v*"
 
 jobs:
-  image_build:
-    name: images build
+  build_16cv300:
+    name: Hi3516Cv300 images
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -71,6 +71,8 @@ jobs:
           mv bin/hi35xx/openwrt-hi35xx-16ev100-u-boot.bin output
           mv bin/hi35xx/openwrt-hi35xx-16ev100-default-root.squashfs output
           mv bin/hi35xx/openwrt-hi35xx-16ev100-default-uImage output
+
+        continue-on-error: true
 
       - name: Send warning message to telegram channel
         env:

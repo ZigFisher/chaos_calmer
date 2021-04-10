@@ -4215,6 +4215,7 @@ CONFIG_PACKAGE_hisi-osdrv1-base=y
 CONFIG_PACKAGE_hisi-osdrv1-binary=y
 CONFIG_PACKAGE_hisi-osdrv1-kmod=y
 CONFIG_PACKAGE_hisi-osdrv1-lib=y
+CONFIG_PACKAGE_hisi-osdrv1-majestic=y
 CONFIG_PACKAGE_hisi-osdrv1-sensor=y
 # CONFIG_PACKAGE_hisi-osdrv2-sensor is not set
 # CONFIG_PACKAGE_hisi-osdrv3-sensor is not set
@@ -4247,12 +4248,19 @@ CONFIG_PACKAGE_luci-app-ipcam=y
 # Tools
 #
 CONFIG_PACKAGE_flash_tool=y
-CONFIG_PACKAGE_hi_chip_info=m
-# CONFIG_PACKAGE_ipc_chip_info is not set
 
 #
 # Unused
 #
+
+#
+# Utils
+#
+CONFIG_PACKAGE_hisi_gpio_scanner=y
+CONFIG_PACKAGE_hisi_gpio_watcher=y
+CONFIG_PACKAGE_ipctool=y
+CONFIG_PACKAGE_memdump=m
+CONFIG_PACKAGE_xmdp=y
 
 #
 # VPN

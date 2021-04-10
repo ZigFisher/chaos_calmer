@@ -1,15 +1,15 @@
-name: Hi3520Dv200 family images
+name: Hi3520Dv200 family
 
 on:
   push:
     branches:
-      - master
+      - future
     tags:
-      - "v*"
+      - "vr*"
 
 jobs:
-  image_build:
-    name: images build
+  build_20dv200:
+    name: Hi3520Dv200 images
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
           echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
 
           ./Project_OpenIPC.sh update
-          ln -sf target/linux/hi35xx/config-3.0.8_hi3520dv200_20210110a target/linux/hi35xx/config-3.0.8  # temporary crutch
+          ln -sf config-3.0.8_hi3520dv200_20210110a target/linux/hi35xx/config-3.0.8  # temporary crutch
           ./Project_OpenIPC.sh 20dv200_DEFAULT
           cp bin/hi35xx/openwrt-hi35xx-20dv200-default-root.squashfs bin/hi35xx/openwrt-hi35xx-20dv100-default-root.squashfs
           cp bin/hi35xx/openwrt-hi35xx-20dv200-default-uImage bin/hi35xx/openwrt-hi35xx-20dv100-default-uImage
@@ -72,6 +72,8 @@ jobs:
           mv bin/hi35xx/openwrt-hi35xx-20dv200-default-root.squashfs output
           mv bin/hi35xx/openwrt-hi35xx-20dv200-default-uImage output
           # mv bin/hi35xx/openwrt-hi35xx-20dv200-u-boot.bin output
+
+        continue-on-error: true
 
       - name: Send warning message to telegram channel
         env:
